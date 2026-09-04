@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이가은 포트폴리오</title>
+<meta name="description" content="풀스택 개발자 이가은의 작품집 — 예술공학 × Vue 3 · Spring. Pick&amp;Pay, HOMEBUDDY 용어해설집, 전세가율 분석, 단어 학습 DB 설계.">
+<meta property="og:title" content="이가은 포트폴리오 — 예술공학 × 풀스택">
+<meta property="og:description" content="풀스택 개발자 이가은의 프로젝트 작품집">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper:       #ffffff;
+    --paper-2:     #f6f6f4;
+    --ink:         #17171a;
+    --ink-soft:    #5a5a63;
+    --ink-faint:   #8e8e98;
+    --line:        #e8e8ec;
+    --line-strong: #d3d3da;
+    --cobalt:      #3b5bdb;
+    --coral:       #e5533d;
+    --amber:       #e2a336;
+    --cobalt-ink:  #2b47b5;
+    --coral-ink:   #c0402c;
+    --amber-ink:   #8a6212;
+    --shadow-sm:   0 1px 2px rgba(20,20,30,.05), 0 6px 18px -8px rgba(20,20,30,.12);
+    --shadow-md:   0 2px 4px rgba(20,20,30,.05), 0 20px 44px -18px rgba(20,20,30,.22);
+    --r:    16px;
+    --r-sm: 10px;
+    --r-xs: 6px;
+
+    --f-sans: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+    --s-label: 0.72rem;
+    --s-sm:    0.85rem;
+    --s-body:  1rem;
+    --s-lead:  clamp(1.1rem, 1.05rem + 0.6vw, 1.32rem);
+    --s-h2:    clamp(1.5rem, 1.2rem + 1.6vw, 2.05rem);
+    --s-plate: clamp(1.55rem, 1.2rem + 2vw, 2.3rem);
+    --s-hero:  clamp(2.7rem, 1.2rem + 8.5vw, 6.2rem);
+
+    --wrap: 1140px;
+    --pad: clamp(1.15rem, 5vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:       #121215;
+      --paper-2:     #1a1a1f;
+      --ink:         #ededf0;
+      --ink-soft:    #a9a9b4;
+      --ink-faint:   #71717c;
+      --line:        #26262d;
+      --line-strong: #363640;
+      --cobalt:      #7b93ff;
+      --coral:       #ff7a66;
+      --amber:       #f2bd5a;
+      --cobalt-ink:  #93a7ff;
+      --coral-ink:   #ff9280;
+      --amber-ink:   #f5c96f;
+      --shadow-sm:   0 1px 2px rgba(0,0,0,.3), 0 8px 22px -10px rgba(0,0,0,.6);
+      --shadow-md:   0 2px 4px rgba(0,0,0,.35), 0 24px 50px -20px rgba(0,0,0,.75);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:       #121215;
+    --paper-2:     #1a1a1f;
+    --ink:         #ededf0;
+    --ink-soft:    #a9a9b4;
+    --ink-faint:   #71717c;
+    --line:        #26262d;
+    --line-strong: #363640;
+    --cobalt:      #7b93ff;
+    --coral:       #ff7a66;
+    --amber:       #f2bd5a;
+    --cobalt-ink:  #93a7ff;
+    --coral-ink:   #ff9280;
+    --amber-ink:   #f5c96f;
+    --shadow-sm:   0 1px 2px rgba(0,0,0,.3), 0 8px 22px -10px rgba(0,0,0,.6);
+    --shadow-md:   0 2px 4px rgba(0,0,0,.35), 0 24px 50px -20px rgba(0,0,0,.75);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: var(--s-body);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4 { font-weight: 700; margin: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  :focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
+  .vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+  .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); }
+  .mono { font-family: var(--f-mono); font-size: var(--s-label); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+
+  /* ---------- header ---------- */
+  .runhead {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border-bottom: 1px solid var(--line);
+  }
+  .runhead__in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .8rem; }
+  .runhead__id {
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-weight: 700; font-size: .95rem; letter-spacing: -.005em;
+    text-decoration: none; white-space: nowrap;
+  }
+  .runhead__id i {
+    width: 10px; height: 10px; border-radius: 50%; flex: none;
+    background: linear-gradient(135deg, var(--cobalt), var(--coral));
+  }
+  .runhead__id span { color: var(--ink-faint); font-weight: 500; }
+  .runhead nav { display: flex; align-items: center; gap: .25rem; }
+  .runhead nav a {
+    font-size: var(--s-sm); font-weight: 500;
+    text-decoration: none; color: var(--ink-soft);
+    padding: .42rem .7rem; border-radius: 999px;
+    transition: background .15s, color .15s;
+  }
+  .runhead nav a:hover { color: var(--ink); background: var(--paper-2); }
+  @media (max-width: 640px) { .runhead nav a[data-opt] { display: none; } }
+  .tgl {
+    appearance: none; margin-left: .35rem;
+    border: 1px solid var(--line); background: var(--paper);
+    color: var(--ink-soft); width: 34px; height: 34px; border-radius: 999px;
+    display: grid; place-items: center; cursor: pointer; padding: 0;
+    transition: color .15s, border-color .15s, transform .15s;
+  }
+  .tgl:hover { color: var(--ink); border-color: var(--line-strong); transform: rotate(-12deg); }
+  .tgl svg { width: 15px; height: 15px; }
+  .tgl .sun { display: none; }
+  :root[data-theme="dark"] .tgl .sun { display: block; }
+  :root[data-theme="dark"] .tgl .moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .tgl .sun { display: block; }
+    :root:not([data-theme="light"]) .tgl .moon { display: none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    padding-top: clamp(3.25rem, 9vw, 6.5rem);
+    padding-bottom: clamp(3rem, 8vw, 5.5rem);
+  }
+  .hero__glow {
+    position: absolute; inset: -20% -10% auto -10%; height: 140%;
+    z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(38rem 26rem at 82% 18%, color-mix(in srgb, var(--cobalt) 16%, transparent), transparent 70%),
+      radial-gradient(30rem 22rem at 20% 85%, color-mix(in srgb, var(--coral) 11%, transparent), transparent 70%),
+      radial-gradient(24rem 18rem at 95% 78%, color-mix(in srgb, var(--amber) 14%, transparent), transparent 70%);
+    filter: blur(6px);
+  }
+  .hero__kick {
+    display: inline-flex; flex-wrap: wrap; gap: .45rem;
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .hero__kick span {
+    font-family: var(--f-mono); font-size: var(--s-label); font-weight: 500;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: .32rem .7rem; border-radius: 999px;
+    background: var(--paper-2); color: var(--ink-soft);
+    border: 1px solid var(--line);
+  }
+  .hero__kick span:first-child { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .hero__title {
+    font-size: var(--s-hero);
+    line-height: .98;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+  }
+  .hero__title .ko {
+    display: block;
+    font-size: .28em;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-top: .55em;
+  }
+  .hero__title .stamp {
+    display: inline-block; vertical-align: middle;
+    font-size: .2em; font-weight: 700; letter-spacing: 0; text-transform: none;
+    padding: .45em .8em; margin-left: .45em;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--amber) 22%, var(--paper));
+    color: var(--ink);
+    transform: rotate(-4deg) translateY(-.15em);
+    box-shadow: var(--shadow-sm);
+  }
+  .hero__title .stamp b { color: var(--coral); }
+
+  .hero__body {
+    margin-top: clamp(1.75rem, 4.5vw, 2.75rem);
+    display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(1.25rem, 4vw, 3rem); align-items: end;
+  }
+  @media (max-width: 780px) { .hero__body { grid-template-columns: 1fr; } }
+  .hero__lead { margin: 0; font-size: var(--s-lead); line-height: 1.6; max-width: 30em; color: var(--ink); }
+  .hero__lead q { font-style: normal; font-weight: 600; box-shadow: inset 0 -.42em 0 color-mix(in srgb, var(--amber) 42%, transparent); }
+  .hero__links { display: flex; flex-wrap: wrap; gap: .55rem; justify-self: end; }
+  @media (max-width: 780px) { .hero__links { justify-self: start; } }
+  .pill {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--f-mono); font-size: var(--s-sm);
+    text-decoration: none; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--line);
+    padding: .55rem .95rem; border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .18s, box-shadow .18s, border-color .18s;
+  }
+  .pill:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+  .pill svg { width: 15px; height: 15px; flex: none; }
+
+  /* ---------- sections ---------- */
+  .band { padding-block: clamp(3rem, 7vw, 5.5rem); border-top: 1px solid var(--line); }
+  .band__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: clamp(1.6rem, 4vw, 2.75rem); }
+  .band__title { font-size: var(--s-h2); letter-spacing: -.02em; }
+  .band__title em { font-style: normal; color: var(--ink-faint); font-weight: 500; margin-left: .35em; font-size: .7em; }
+  .band__count { color: var(--ink-faint); }
+
+  /* ---------- bio ---------- */
+  .bio { display: grid; gap: .75rem; }
+  .bio__row {
+    display: grid; grid-template-columns: 11rem 1fr; gap: .35rem 2rem;
+    padding: 1.3rem 1.4rem;
+    background: var(--paper-2); border-radius: var(--r);
+  }
+  @media (max-width: 640px) { .bio__row { grid-template-columns: 1fr; } }
+  .bio__when { font-family: var(--f-mono); font-size: var(--s-sm); color: var(--ink-faint); padding-top: .2rem; }
+  .bio__what h3 { font-size: 1.08rem; margin-bottom: .3rem; }
+  .bio__what p { margin: 0; color: var(--ink-soft); max-width: 44em; }
+
+  /* ---------- tools ---------- */
+  .tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; }
+  @media (max-width: 900px) { .tools { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .tools { grid-template-columns: 1fr; } }
+  .tool {
+    padding: 1.35rem 1.35rem 1.5rem;
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--r);
+    box-shadow: var(--shadow-sm);
+    transition: transform .18s, box-shadow .18s;
+  }
+  .tool:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .tool h3 {
+    display: flex; align-items: center; gap: .55rem;
+    font-size: var(--s-sm); font-weight: 700; letter-spacing: .02em;
+    margin-bottom: 1rem;
+  }
+  .tool h3 i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
+  .tool ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+  .tool li b { display: block; font-weight: 700; }
+  .tool li span { font-size: var(--s-sm); color: var(--ink-soft); }
+
+  /* ---------- plates ---------- */
+  .plates { display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
+  .plate {
+    display: grid; grid-template-columns: 1fr 1.12fr;
+    gap: clamp(1.4rem, 4vw, 3.25rem); align-items: center;
+  }
+  .plate--flip { grid-template-columns: 1.12fr 1fr; }
+  .plate--flip .plate__media { order: 2; }
+  @media (max-width: 820px) {
+    .plate { grid-template-columns: 1fr; gap: 1.35rem; }
+    .plate--flip .plate__media { order: 0; }
+  }
+  .plate__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--r);
+    overflow: hidden;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s;
+  }
+  .plate:hover .plate__media { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .plate__media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform .6s cubic-bezier(.2,.7,.3,1); }
+  .plate:hover .plate__media img { transform: scale(1.03); }
+  .plate__media svg { width: 100%; height: 100%; display: block; }
+
+  .plate__tag {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--f-mono); font-size: var(--s-label); font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: .35rem .75rem; border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 13%, var(--paper));
+    color: var(--accent-ink, var(--accent));
+    margin-bottom: 1rem;
+  }
+  .plate__tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .plate__title { font-size: var(--s-plate); line-height: 1.12; letter-spacing: -.02em; }
+  .plate__sub {
+    margin: .5rem 0 0; font-weight: 600; font-size: 1.02rem;
+    color: var(--accent-ink, var(--accent)); letter-spacing: -.005em;
+  }
+  .plate__desc {
+    margin: .9rem 0 0; color: var(--ink-soft);
+    max-width: 30em; line-height: 1.65;
+  }
+  .plate__points {
+    list-style: none; margin: 1.3rem 0 0; padding: 0;
+    display: grid; gap: .6rem;
+  }
+  .plate__points li {
+    display: grid; grid-template-columns: 1.3rem 1fr; gap: .7rem;
+    align-items: start;
+    font-size: .94rem; font-weight: 500; line-height: 1.5; color: var(--ink);
+  }
+  .plate__points li i {
+    grid-column: 1; grid-row: 1;
+    width: 1.3rem; height: 1.3rem; border-radius: 50%; margin-top: .05rem;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 26%, transparent);
+  }
+  .plate__points li i::before {
+    content: ""; width: .4rem; height: .4rem; border-radius: 50%; background: var(--accent);
+  }
+  .plate__points li span { grid-column: 2; grid-row: 1; }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.3rem; }
+  .chips span {
+    font-family: var(--f-mono); font-size: var(--s-label);
+    padding: .3rem .6rem; border-radius: 999px;
+    background: var(--paper-2); color: var(--ink-soft); border: 1px solid var(--line);
+  }
+  .plate__row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .9rem 1.2rem;
+    margin-top: 1.5rem; padding-top: 1.35rem;
+    border-top: 1px solid var(--line);
+  }
+  .plate__meta { font-family: var(--f-mono); font-size: var(--s-sm); color: var(--ink-faint); }
+  .btn {
+    appearance: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--f-sans); font-size: var(--s-sm); font-weight: 700;
+    background: var(--ink); color: var(--paper);
+    border: 0; padding: .7rem 1.15rem; border-radius: 999px;
+    transition: background .18s, transform .18s, box-shadow .18s;
+  }
+  .btn:hover { background: var(--accent-ink, var(--cobalt)); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn svg { width: 14px; height: 14px; transition: transform .18s; }
+  .btn:hover svg { transform: translateX(3px); }
+
+  /* ---------- dialog ---------- */
+  dialog.case {
+    padding: 0; border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--paper); color: var(--ink);
+    max-width: 800px; width: calc(100vw - 1.5rem);
+    max-height: calc(100dvh - 2.5rem);
+    overflow: hidden; box-shadow: var(--shadow-md);
+  }
+  dialog.case::backdrop { background: rgba(10, 10, 16, .55); backdrop-filter: blur(4px); }
+  .case__scroll { overflow-y: auto; max-height: calc(100dvh - 2.5rem); padding: clamp(1.4rem, 4vw, 2.6rem); }
+  .case__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
+  .case__title { font-size: var(--s-plate); line-height: 1.12; letter-spacing: -.02em; }
+  .case__meta { margin: .8rem 0 0; font-family: var(--f-mono); font-size: var(--s-sm); color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
+  .case__x {
+    appearance: none; flex: none; width: 36px; height: 36px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--paper-2); color: var(--ink);
+    font-size: 1.2rem; line-height: 1; cursor: pointer; transition: background .15s, transform .15s;
+  }
+  .case__x:hover { background: var(--line); transform: rotate(90deg); }
+  .gallery { display: grid; gap: 1.25rem; }
+  .gallery figure { margin: 0; }
+  .gallery img { width: 100%; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--paper-2); }
+  .gallery figcaption {
+    margin-top: .55rem; font-size: var(--s-sm); color: var(--ink-soft);
+    display: grid; grid-template-columns: auto 1fr; gap: .55rem; align-items: baseline;
+  }
+  .gallery figcaption::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent, var(--cobalt)); transform: translateY(-2px);
+  }
+  .case__block { margin-top: 1.75rem; }
+  .case__block:first-of-type { margin-top: 0; }
+  .case__label {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--f-mono); font-size: var(--s-label); font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft);
+    margin: 0 0 .85rem;
+  }
+  .case__label::before { content: ""; width: 9px; height: 9px; border-radius: 2px; background: var(--accent, var(--cobalt)); }
+  .case__summary { margin: 0; line-height: 1.7; }
+  .role { margin-bottom: 1.15rem; }
+  .role:last-child { margin-bottom: 0; }
+  .role h4 { font-size: 1rem; margin-bottom: .45rem; }
+  .case ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .55rem; }
+  .case ul li { color: var(--ink-soft); line-height: 1.62; font-size: .95rem; }
+  .case ul li::marker { color: var(--accent, var(--cobalt)); }
+  .trouble { display: grid; gap: .7rem; }
+  .trouble__i {
+    padding: .9rem 1.05rem; border-radius: var(--r-sm);
+    background: color-mix(in srgb, var(--accent, var(--cobalt)) 7%, var(--paper));
+    border-left: 3px solid var(--accent, var(--cobalt));
+  }
+  .trouble__i b { display: block; margin-bottom: .2rem; }
+  .trouble__i span { color: var(--ink-soft); font-size: var(--s-sm); line-height: 1.55; }
+  .retro { display: grid; gap: .7rem; margin: 0; }
+  .retro > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: .8rem 1rem; background: var(--paper-2); border-radius: var(--r-sm); }
+  .retro dt { font-weight: 700; font-size: var(--s-sm); }
+  .retro dd { margin: 0; color: var(--ink-soft); line-height: 1.55; font-size: var(--s-sm); }
+  @media (max-width: 540px) { .retro > div { grid-template-columns: 1fr; gap: .2rem; } }
+  .case__repo { margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
+  .case__repo .soon { font-family: var(--f-mono); font-size: var(--s-sm); color: var(--ink-faint); }
+
+  /* ---------- contact ---------- */
+  .contact__card {
+    position: relative; overflow: hidden;
+    padding: clamp(2rem, 5vw, 3.25rem);
+    border-radius: 24px;
+    background: var(--ink); color: var(--paper);
+  }
+  .contact__card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(28rem 20rem at 90% 10%, color-mix(in srgb, var(--cobalt) 55%, transparent), transparent 70%),
+      radial-gradient(22rem 16rem at 10% 100%, color-mix(in srgb, var(--coral) 45%, transparent), transparent 70%);
+    opacity: .9;
+  }
+  .contact__in { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; align-items: end; }
+  @media (max-width: 720px) { .contact__in { grid-template-columns: 1fr; } }
+  .contact__line { font-size: var(--s-h2); line-height: 1.2; letter-spacing: -.02em; max-width: 14em; text-wrap: balance; }
+  .contact__line small { display: block; font-size: .5em; font-weight: 500; opacity: .7; margin-top: .6em; letter-spacing: 0; }
+  .contact__links { display: grid; gap: .6rem; justify-self: end; }
+  @media (max-width: 720px) { .contact__links { justify-self: start; } }
+  .contact__links .pill { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.18); color: var(--paper); box-shadow: none; }
+  .contact__links .pill:hover { background: rgba(255,255,255,.18); }
+
+  /* ---------- footer ---------- */
+  .colophon {
+    padding-block: 2rem 3rem;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: .4rem;
+    font-family: var(--f-mono); font-size: var(--s-label);
+    letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reg { animation: reg .55s cubic-bezier(.2,.7,.3,1) both; }
+    .reg--2 { animation-delay: .07s; }
+    .reg--3 { animation-delay: .14s; }
+    @keyframes reg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+
+<header class="runhead">
+  <div class="wrap runhead__in">
+    <a href="#top" class="runhead__id"><i></i>이가은 <span>/ Gaeun Lee</span></a>
+    <nav>
+      <a href="#bio" data-opt>약력</a>
+      <a href="#tools" data-opt>도구</a>
+      <a href="#work">작품</a>
+      <a href="#contact">연락</a>
+      <button class="tgl" type="button" aria-label="라이트/다크 전환">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__kick reg">
+        <span>Portfolio 2026</span>
+        <span>예술공학 × 풀스택</span>
+        <span>Vue 3 · Spring</span>
+      </div>
+      <h1 class="hero__title reg reg--2">
+        Gaeun<br>Lee <span class="stamp">예술 <b>×</b> 공학</span>
+        <span class="ko">풀스택 개발자 이가은</span>
+      </h1>
+      <div class="hero__body reg reg--3">
+        <p class="hero__lead">
+          <q>잘 만드는 것보다, 어떻게 하면 더 잘 만들 수 있을지 고민하는</q>
+          개발자입니다. 예술공학을 전공하며 디자인과 구현을 함께 보는 시선을 길렀고,
+          Vue 3와 Spring으로 인증·데이터 파이프라인·시각화가 얽힌 서비스를 만들어 왔습니다.
+        </p>
+        <div class="hero__links">
+          <a class="pill" href="https://github.com/Lee-gaeun" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/></svg>
+            github.com/Lee-gaeun
+          </a>
+          <a class="pill" href="mailto:kmeans203@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            kmeans203@gmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="bio">
+      <div class="band__head">
+        <h2 class="band__title">약력<em>Bio</em></h2>
+        <span class="band__count mono">2021 — 현재</span>
+      </div>
+      <div class="bio">
+        <div class="bio__row">
+          <div class="bio__when">2021.03 – 2026.02</div>
+          <div class="bio__what">
+            <h3>중앙대학교 예술공학부 졸업</h3>
+            <p>예술과 공학을 융합한 학습 경험. 디자인과 개발을 함께 고려하는 사고력을 길렀습니다.</p>
+          </div>
+        </div>
+        <div class="bio__row">
+          <div class="bio__when">2025.03 – 2025.08</div>
+          <div class="bio__what">
+            <h3>KB IT&rsquo;s Your Life 과정 수료</h3>
+            <p>Java · Spring · MyBatis · Vue 기반 웹 개발 학습. REST API 설계 및 CRUD 구현 경험.</p>
+          </div>
+        </div>
+        <div class="bio__row">
+          <div class="bio__when">2026.01 – 현재</div>
+          <div class="bio__what">
+            <h3>SSAFY (삼성 청년 SW 아카데미)</h3>
+            <p>웹 개발 및 알고리즘 역량 강화 과정 참여. 실무 중심 프로젝트와 협업 경험.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="tools">
+      <div class="band__head">
+        <h2 class="band__title">도구<em>Tools</em></h2>
+        <span class="band__count mono">Frontend · Backend · DB · Collab</span>
+      </div>
+      <div class="tools">
+        <div class="tool" style="--c: var(--cobalt)">
+          <h3><i></i>Frontend</h3>
+          <ul>
+            <li><b>HTML5 / CSS3</b><span>웹 표준 기반 UI 구현</span></li>
+            <li><b>JavaScript ES6+</b><span>DOM 조작 · 이벤트 처리</span></li>
+            <li><b>Vue.js</b><span>컴포넌트 구조 설계 · 상태 관리</span></li>
+            <li><b>Responsive Web</b><span>다양한 화면 대응 레이아웃</span></li>
+          </ul>
+        </div>
+        <div class="tool" style="--c: var(--coral)">
+          <h3><i></i>Backend</h3>
+          <ul>
+            <li><b>Java</b><span>객체지향 기반 로직 구현</span></li>
+            <li><b>Spring / Spring MVC</b><span>웹 구조·흐름 이해 · CRUD API</span></li>
+            <li><b>RESTful API</b><span>요청/응답 설계 · Postman 테스트</span></li>
+            <li><b>MyBatis</b><span>Mapper 기반 DB 연동·쿼리</span></li>
+          </ul>
+        </div>
+        <div class="tool" style="--c: var(--amber)">
+          <h3><i></i>Database</h3>
+          <ul>
+            <li><b>MySQL</b><span>테이블 설계 · CRUD 쿼리</span></li>
+            <li><b>JDBC</b><span>DB 연결 · 데이터 처리 흐름</span></li>
+            <li><b>ER-Diagram</b><span>개념·논리·물리 3단계 설계</span></li>
+          </ul>
+        </div>
+        <div class="tool" style="--c: var(--ink)">
+          <h3><i></i>Collab</h3>
+          <ul>
+            <li><b>Git / GitHub</b><span>버전 관리 · 협업 workflow</span></li>
+            <li><b>Postman</b><span>API 테스트 및 검증</span></li>
+            <li><b>Figma</b><span>UI 설계 및 협업</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="work">
+      <div class="band__head">
+        <h2 class="band__title">작품<em>Selected Work</em></h2>
+        <span class="band__count mono">4 Projects · 2024 – 2026</span>
+      </div>
+      <div class="plates" id="plates"></div>
+    </section>
+
+    <section class="band" id="contact">
+      <h2 class="vh">연락</h2>
+      <div class="contact__card">
+        <div class="contact__in">
+          <p class="contact__line">함께 만들 이야기가 있다면<br>편하게 연락 주세요.<small>Let&rsquo;s build something together.</small></p>
+          <div class="contact__links">
+            <a class="pill" href="mailto:kmeans203@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              kmeans203@gmail.com
+            </a>
+            <a class="pill" href="https://github.com/Lee-gaeun" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/></svg>
+              github.com/Lee-gaeun
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="wrap colophon">
+    <span>© 2026 이가은 · Gaeun Lee</span>
+    <span>IBM Plex · Static HTML · GitHub Pages</span>
+  </footer>
+</main>
+
+<dialog class="case" id="dlg" aria-labelledby="dlgTitle">
+  <div class="case__scroll" id="dlgBody"></div>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+
+  var root = document.documentElement;
+  var KEY = "gaeun-theme-v2";
+  try { var s = localStorage.getItem(KEY); if (s === "light" || s === "dark") root.setAttribute("data-theme", s); } catch (e) {}
+  function theme() { return root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); }
+  var tgl = document.querySelector(".tgl");
+  if (tgl) tgl.addEventListener("click", function () {
+    var n = theme() === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", n);
+    try { localStorage.setItem(KEY, n); } catch (e) {}
+  });
+
+  /* ================= PROJECT DATA =================
+     이미지 추가 방법:
+     1) 저장소에 images/ 폴더를 만들고 스크린샷 파일을 넣는다.
+     2) 아래 각 프로젝트의 images: [] 안에 파일명을 적는다.
+        예)  images: ["pick-landing.png", "pick-payroll.png"]
+     첫 번째 이미지가 작품 목록의 대표 이미지로 쓰이고,
+     전체 이미지는 상세 창의 갤러리에 표시된다.
+     비어 있으면 자리에 그라데이션 플레이스홀더가 뜬다.
+  ================================================ */
+  var projects = [
+    {
+      id: "pick-n-pay", accent: "cobalt", no: "01",
+      name: "Pick&Pay", ko: "소상공인 및 근로자 통합관리 서비스", year: "2026",
+      dim: "3인 팀 · 풀스택", period: "2026.06",
+      images: [
+        { src: "1-1.png", cap: "랜딩 페이지 — 서비스 소개와 핵심 기능" },
+        { src: "1-2.png", cap: "관리 대시보드 — 월별 근무 캘린더와 일별 급여" },
+        { src: "1-4.png", cap: "급여명세서 — 지급·공제 항목 상세" },
+        { src: "1-3.png", cap: "소상공인 지원금 정책 목록과 AI 요약" }
+      ],
+      short: "사장님과 알바생을 잇는 알바 관리 플랫폼. 인증부터 출퇴근·급여 계산, 지원금 정책 AI 요약까지 담당했습니다.",
+      points: [
+        "카카오·이메일 인증 로그인 흐름 전체 단독 구현",
+        "공공 정책 API → DB 자동 수집 → AI 요약 파이프라인 구축",
+        "Spring Security + JWT 기반 인증·인가 설계"
+      ],
+      desc: "사장님과 알바생을 잇는 스마트 알바 관리 플랫폼. 카카오·이메일 인증 로그인부터 출퇴근 기록, 근무 수정 요청, 급여 계산, 소상공인 지원금 정책 API 연동과 AI 요약까지 담당했습니다.",
+      stack: ["Vue 3", "TypeScript", "Pinia", "Vite", "Axios", "Spring Boot", "Spring Security", "JWT", "MyBatis", "MySQL", "Spring Batch", "Spring WebFlux (WebClient)"],
+      roles: [
+        { h: "백엔드", items: [
+          "카카오 OAuth2 인가코드 기반 자동 가입·로그인 로직 구현",
+          "이메일 인증 코드 발송·검증 후 JWT 토큰 발급 처리",
+          "Spring Security 필터 기반 전체 API 인증·인가 흐름 구성",
+          "역할(OWNER / WORKER) 전환 시 JWT 재발급 로직 구현",
+          "출퇴근 기록 등록(POST /work_records) 및 근무 수정 요청 처리",
+          "Spring Batch로 공공 정책 API 주기적 자동 수집·저장",
+          "Spring WebFlux(WebClient)로 외부 정책 API 비동기 호출",
+          "대상(OWNER / WORKER) 필터 기반 맞춤 정책 목록 제공",
+          "AI API 연동으로 조건 기반 정책 추천(PolicyAiService) 구현"
+        ]},
+        { h: "프론트엔드", items: [
+          "근무 기록 캘린더 뷰 구현 (월별 근무일 시각화, 당월 총 근무시간 표시)",
+          "급여 확인서 화면 구현 (기본급·주휴수당·야간수당·공휴일수당·공제 항목 상세)",
+          "Pinia로 로그인 정보 전역 상태 관리",
+          "지원금 정책 목록 및 즐겨찾기(북마크) 기능 구현"
+        ]}
+      ],
+      trouble: [
+        { p: "이메일 인증 코드 타임아웃", s: "이메일 응답 지연으로 회원가입 요청 타임아웃 발생 → 비동기 처리(@Async) 전환 및 이메일 중복 체크 API 분리로 해결" },
+        { p: "Storage 보안 이슈", s: "localStorage 토큰 저장으로 브라우저 재시작 후에도 자동 로그인이 유지되는 문제 → SessionStorage 전환으로 브라우저 종료 시 자동 로그아웃" }
+      ],
+      outcomes: [
+        "카카오·이메일 인증 기반 로그인 흐름 전체 단독 구현",
+        "근무 수정 요청 → 사장님 실시간 알림 → 승인/거절까지 이어지는 흐름 설계",
+        "공공 정책 API(XML/JSON) → DB 자동 수집·저장 → AI 요약까지 전체 파이프라인 구축",
+        "Spring Security + JWT 기반 인증/인가 실무 경험 축적"
+      ],
+      retro: {
+        good: "비동기 처리로 이메일 인증 지연 문제를 근본적으로 해결",
+        bad: "AI 활용이 단순 텍스트 요약에 그쳐, 매장 규모·업종을 반영한 개인화 추천까지는 이어지지 못함",
+        learned: "인증 토큰 저장 방식(localStorage vs SessionStorage) 선택이 보안과 사용자 경험 모두에 영향을 준다는 것을 실전에서 체득"
+      },
+      repo: "https://github.com/Lee-gaeun/pick-n-pay"
+    },
+    {
+      id: "homebuddy-terms", accent: "coral", no: "02",
+      name: "HOMEBUDDY", ko: "부동산 용어해설집 기능", year: "2025",
+      dim: "8인 팀 · 백엔드·프론트엔드", period: "2025.07 – 08 · 6주",
+      images: [
+        { src: "2-1.png", cap: "용어해설집 전체 목록 — 검색과 카테고리 필터" },
+        { src: "2-2.png", cap: "카테고리 배지가 붙은 용어 카드 컴포넌트" }
+      ],
+      short: "전세 계약에 등장하는 법률·부동산 용어를 검색·필터링하는 해설집. REST API와 Vue 3 컴포넌트를 단독 설계했습니다.",
+      points: [
+        "단일 API 호출 + computed 필터링으로 즉각 반응 UX",
+        "카테고리 색상을 DB에서 관리해 프론트 수정 없이 반영",
+        "카드·모달 컴포넌트 4종 분리로 재사용성 확보"
+      ],
+      desc: "전세 계약 시 자주 등장하는 법률·부동산 용어를 검색하고 카테고리별로 필터링할 수 있는 용어 해설집. 백엔드 REST API와 Vue 3 컴포넌트를 단독으로 설계·구현했습니다.",
+      stack: ["Spring Legacy MVC", "MyBatis", "MySQL", "Vue 3", "Bootstrap 5"],
+      roles: [
+        { h: "백엔드", items: [
+          "용어 해설집 REST API 설계 및 구현 (Controller · Service · Mapper 레이어)",
+          "keyword · categoryId를 Map으로 묶어 MyBatis 동적 쿼리로 전달",
+          "TermDTO에 카테고리명·카테고리 색상을 조인해 한 번에 반환"
+        ]},
+        { h: "프론트엔드", items: [
+          "TermView — 전체 용어 목록 페이지 Vue 3 Options API로 구현",
+          "TermCard — 용어명·카테고리 배지·정의 미리보기 카드 컴포넌트",
+          "TermModal — 정의·주의·예시 상세 모달 컴포넌트",
+          "TermViewModal — 검색·필터·카드 목록을 모두 포함하는 중첩 모달 구조",
+          "computed로 클라이언트 사이드 실시간 검색·카테고리 필터·가나다순 정렬 처리"
+        ]}
+      ],
+      trouble: [
+        { p: "클라이언트 필터링", s: "검색마다 API 재호출 시 UX 저하 → 최초 1회 fetch 후 computed로 실시간 필터링" },
+        { p: "중첩 모달 z-index 충돌", s: "TermViewModal 2000 / 내부 TermModal 2100으로 레이어 명시 분리" }
+      ],
+      outcomes: [
+        "단일 API 호출 + computed 필터링으로 추가 네트워크 요청 없는 즉각 반응 UX",
+        "카테고리 색상 DB 관리로 프론트 코드 수정 없이 색상 동적 반영",
+        "TermCard · TermModal · TermViewModal 컴포넌트 분리로 재사용성 확보",
+        "MyBatis 동적 쿼리로 전체/검색/필터를 단일 Mapper에서 통합 처리"
+      ],
+      retro: {
+        good: "computed로 검색·필터·정렬을 선언적으로 통합해 코드 간결성 확보",
+        bad: "용어 수 증가 시 초기 로딩 부하 → 하이브리드 검색 아키텍처(서버 페이징 + 가상 스크롤) 필요성 인지",
+        learned: "중첩 모달은 처음부터 z-index 계층을 명시적으로 설계해야 함"
+      },
+      repo: "https://github.com/Lee-gaeun/mouem-zip"
+    },
+    {
+      id: "jeonse-ratio", accent: "amber", no: "03",
+      name: "HOMEBUDDY", ko: "전세가율 분석 서비스", year: "2025",
+      dim: "개인 프로젝트 · 풀스택", period: "2025.10 – 12",
+      cover: "3-2.png",
+      images: [
+        { src: "3-1.png", cap: "주소·아파트 검색 — 카카오 우편번호 API로 법정동 코드 자동 추출" },
+        { src: "3-2.png", cap: "전세가율 추이 — Chart.js 꺾은선 그래프" },
+        { src: "3-3.png", cap: "월별 전세가율 데이터 표" }
+      ],
+      short: "국토교통부 실거래가 공공 API로 전세가율을 실시간 계산하고, 4년치 시세 흐름을 그래프로 보여줍니다.",
+      points: [
+        "공공 API(XML) → DTO → REST JSON 파이프라인 단독 구현",
+        "Chart.js 꺾은선·막대 동적 전환 시각화",
+        "Spring Legacy MVC + Gradle + WAR 배포 전 과정 직접 구성"
+      ],
+      desc: "국토교통부 아파트 전월세·매매 실거래가 공공 API를 연동해 특정 지역·아파트의 전세가율을 실시간으로 계산하고, 최근 4년간 시세 흐름을 그래프로 시각화합니다.",
+      stack: ["Spring Legacy MVC", "Lombok", "Jackson XML", "RestTemplate", "Vue 3", "Chart.js"],
+      roles: [
+        { h: "백엔드", items: [
+          "JeonseController — REST API 3개 엔드포인트 설계 및 구현",
+          "JeonseServiceImpl — 전세가율 계산, 매매가 추정, 시계열 샘플링 로직 구현",
+          "JeonseOpenApiClient — 국토교통부 Open API 연동 (RestTemplate + UriComponentsBuilder)",
+          "AptRentResponse / AptTradeResponse — XML 응답 역직렬화 도메인 모델 설계",
+          "AptRentMapper — 도메인 객체 → DTO 변환 레이어 구현"
+        ]},
+        { h: "프론트엔드", items: [
+          "카카오 우편번호 API 연동으로 주소 선택 시 법정동 코드 자동 추출 (bcode 앞 5자리 → LAWD_CD)",
+          "Chart.js 4를 활용한 꺾은선 / 막대 그래프 동적 전환 구현",
+          "백엔드 JSON 응답 → 차트 라벨·데이터 바인딩 및 평균 전세가율 실시간 계산"
+        ]}
+      ],
+      trouble: [
+        { p: "XML items 파싱 null", s: "@JacksonXmlElementWrapper(useWrapping = false) 누락으로 item 리스트 null 반환 → 어노테이션 추가로 해결" },
+        { p: "페이지네이션 과다 호출", s: "5페이지 단순 루프로 불필요한 API 재호출 발생 → totalCount 비교 및 rows < pageSize 조건으로 조기 종료" }
+      ],
+      outcomes: [
+        "Spring Legacy MVC + Gradle + WAR 배포 전 과정 직접 구성",
+        "공공 API(XML) → DTO → REST JSON 전체 데이터 파이프라인 단독 구현",
+        "Chart.js 꺾은선/막대 동적 전환 시각화 UI 구현",
+        "실무적 환경 이슈(Gradle · JVM · Lombok) 해결 경험 축적"
+      ],
+      retro: {
+        good: "레이어 분리로 API 장애 시 더미 데이터 즉시 대체 성공",
+        bad: "API 키 평문 관리, 캐싱 미적용으로 반복 호출 시 성능 저하",
+        learned: "baseURL · proxy · CORS 세 가지를 함께 고려해야 함을 실전 체득"
+      },
+      repo: null
+    },
+    {
+      id: "vocab-db", accent: "ink", no: "04",
+      name: "단어 학습 서비스 DB 설계", ko: "", year: "2024",
+      dim: "개인 프로젝트 · DB 설계", period: "2024.12",
+      cover: "4-3.png",
+      images: [
+        { src: "4-1.png", cap: "요구사항 명세서 — 8개 도메인 36개 기능 항목" },
+        { src: "4-2.png", cap: "1차 ER-Diagram — 중복 데이터·관계 특성 문제 발견" },
+        { src: "4-3.png", cap: "2차 ER-Diagram — m:n 관계를 관계 릴레이션으로 분리" },
+        { src: "4-4.png", cap: "물리적 설계 — MySQL 3중 JOIN 조인 쿼리 검증" }
+      ],
+      short: "단어 학습 서비스의 데이터베이스를 개념·논리·물리 3단계로 설계했습니다.",
+      points: [
+        "요구사항 36개를 8개 도메인으로 구조화",
+        "1·2차 ER-Diagram 반복 개선으로 m:n 관계 정규화",
+        "MySQL 테이블 생성 + 3중 JOIN 조인 쿼리 5개 구현"
+      ],
+      desc: "Quizlet · VocaTrain · VOCAT 등 단어 학습 플랫폼을 벤치마킹해 회원 관리, 구독 결제, 카드세트, 테스트 제작, 달력 목표 관리 기능을 포함하는 서비스의 데이터베이스를 개념적·논리적·물리적 설계 3단계로 완성했습니다.",
+      stack: ["MySQL", "ER-Diagram", "관계형 데이터베이스 설계"],
+      roles: [
+        { h: "담당 역할 및 기여", items: [
+          "요구사항 명세서 36개 기능 항목 직접 정의 (회원·결제·뱃지·교과서·클래스·카드세트·테스트·달력 8개 도메인)",
+          "1차 ER-Diagram 작성 후 문제점 분석 — 중복 데이터·관계 특성 파악 오류 발견",
+          "2차 ER-Diagram 개선 — 다대다(m:n) 관계를 관계 릴레이션으로 분리, 복합·다중값 속성 고려",
+          "논리적 설계 — ER-Diagram 기반 릴레이션 스키마 정의 및 도메인 정리",
+          "물리적 설계 — MySQL로 전체 테이블 생성, 데이터 삽입, 조인 쿼리 5개 작성"
+        ]}
+      ],
+      trouble: [
+        { p: "1차 ER-Diagram 중복 데이터", s: "개체 중심 설계로 m:n 관계 속성을 개체에 넣어 중복 발생 → 2차에서 관계 릴레이션으로 분리" },
+        { p: "복합·다중값 속성 처리", s: "관심과목·알림 등 다중값을 단일 컬럼으로 처리 시 1NF 위반 → 별도 테이블 분리" }
+      ],
+      outcomes: [
+        "요구사항 36개를 8개 도메인으로 구조화해 전체 DB 설계 완성",
+        "1차 → 2차 ER-Diagram 반복 개선으로 관계형 DB 설계 핵심 원칙 체득",
+        "MySQL 전체 테이블 생성 + 조인 쿼리 5개 (3중 JOIN · COUNT · GROUP BY) 구현",
+        "설계한 스키마의 실제 동작을 물리적 설계 단계에서 직접 검증"
+      ],
+      retro: {
+        good: "1차 설계 문제를 스스로 발견하고 관계 중심으로 전면 재설계한 점",
+        bad: "뱃지 초기화·구독 만료 등 시간 기반 이벤트를 트리거·스케줄러로 구현하지 못한 점",
+        learned: "m:n 관계는 반드시 별도 릴레이션으로 분리, 관계 자체도 속성을 가질 수 있음을 직접 체득"
+      },
+      repo: null
+    }
+  ];
+
+  var ACCENT = { cobalt: "var(--cobalt)", coral: "var(--coral)", amber: "var(--amber)", ink: "var(--ink)" };
+  var ACCENT_INK = { cobalt: "var(--cobalt-ink)", coral: "var(--coral-ink)", amber: "var(--amber-ink)", ink: "var(--ink)" };
+
+  function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function imgSrc(x) { return typeof x === "string" ? x : x.src; }
+  function imgCap(x) { return typeof x === "string" ? "" : (x.cap || ""); }
+  function coverOf(p) {
+    if (p.cover) return p.cover;
+    return p.images && p.images.length ? imgSrc(p.images[0]) : null;
+  }
+  function titleMarkup(p) { return esc(p.name); }
+
+  /* soft gradient placeholder — shows until real screenshots are added */
+  function placeholder(p) {
+    var A = ACCENT[p.accent];
+    var initials = p.name.replace(/[^A-Za-z가-힣&]/g, "").slice(0, 2).toUpperCase();
+    return '<svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + esc(p.name) + ' (이미지 준비 중)">' +
+      '<defs>' +
+        '<linearGradient id="g-' + p.id + '" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="' + A + '" stop-opacity="0.22"/>' +
+          '<stop offset="1" stop-color="' + A + '" stop-opacity="0.04"/>' +
+        '</linearGradient>' +
+        '<pattern id="d-' + p.id + '" width="22" height="22" patternUnits="userSpaceOnUse">' +
+          '<circle cx="1.5" cy="1.5" r="1.5" fill="' + A + '" opacity="0.18"/>' +
+        '</pattern>' +
+      '</defs>' +
+      '<rect width="640" height="480" fill="var(--paper-2)"/>' +
+      '<rect width="640" height="480" fill="url(#g-' + p.id + ')"/>' +
+      '<rect width="640" height="480" fill="url(#d-' + p.id + ')"/>' +
+      '<circle cx="520" cy="110" r="150" fill="' + A + '" opacity="0.10"/>' +
+      '<circle cx="140" cy="400" r="110" fill="' + A + '" opacity="0.08"/>' +
+      '<text x="48" y="392" font-family="IBM Plex Sans KR, sans-serif" font-weight="700" font-size="150" letter-spacing="-6" fill="' + A + '" opacity="0.35">' + esc(p.no) + '</text>' +
+      '<text x="52" y="432" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="2" fill="var(--ink-faint)">이미지 준비 중 · SCREENSHOT COMING</text>' +
+      '</svg>';
+  }
+
+  function mediaMarkup(p) {
+    var c = coverOf(p);
+    var body = c
+      ? '<img src="images/' + encodeURIComponent(c) + '" alt="' + esc(p.name) + ' 대표 화면" loading="lazy">'
+      : placeholder(p);
+    return '<div class="plate__media">' + body + '</div>';
+  }
+
+  var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+  var platesEl = document.getElementById("plates");
+  projects.forEach(function (p, i) {
+    var art = document.createElement("article");
+    art.className = "plate" + (i % 2 ? " plate--flip" : "");
+    art.style.setProperty("--accent", ACCENT[p.accent]);
+    art.style.setProperty("--accent-ink", ACCENT_INK[p.accent]);
+    var chips = p.stack.slice(0, 5).map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("");
+    if (p.stack.length > 5) chips += "<span>+" + (p.stack.length - 5) + "</span>";
+    var points = (p.points || []).map(function (t) {
+      return "<li><i></i><span>" + esc(t) + "</span></li>";
+    }).join("");
+
+    art.innerHTML =
+      mediaMarkup(p) +
+      '<div class="plate__txt">' +
+        '<span class="plate__tag"><i></i>Project ' + esc(p.no) + ' · ' + esc(p.year) + '</span>' +
+        '<h3 class="plate__title">' + titleMarkup(p) + '</h3>' +
+        (p.ko ? '<p class="plate__sub">' + esc(p.ko) + '</p>' : '') +
+        '<p class="plate__desc">' + esc(p.short || p.desc) + '</p>' +
+        '<ul class="plate__points">' + points + '</ul>' +
+        '<div class="chips">' + chips + '</div>' +
+        '<div class="plate__row">' +
+          '<button class="btn" type="button" aria-haspopup="dialog">자세히 보기 ' + arrow + '</button>' +
+          '<span class="plate__meta">' + esc(p.dim) + ' · ' + esc(p.period) + '</span>' +
+        '</div>' +
+      '</div>';
+
+    art.querySelector(".btn").addEventListener("click", function () { openCase(i); });
+    platesEl.appendChild(art);
+  });
+
+  /* ---------- dialog ---------- */
+  var dlg = document.getElementById("dlg");
+  var dlgBody = document.getElementById("dlgBody");
+  var lastFocus = null;
+  function ul(items) { return "<ul>" + items.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>"; }
+
+  function openCase(i) {
+    var p = projects[i];
+    lastFocus = document.activeElement;
+    dlg.style.setProperty("--accent", ACCENT[p.accent]);
+    dlg.style.setProperty("--accent-ink", ACCENT_INK[p.accent]);
+
+    var gallery = p.images && p.images.length
+      ? '<div class="case__block"><p class="case__label">화면</p><div class="gallery">' + p.images.map(function (x) {
+          var cap = imgCap(x);
+          return '<figure>' +
+            '<img src="images/' + encodeURIComponent(imgSrc(x)) + '" alt="' + esc(p.name) + (cap ? " — " + esc(cap) : " 스크린샷") + '" loading="lazy">' +
+            (cap ? "<figcaption>" + esc(cap) + "</figcaption>" : "") +
+          "</figure>";
+        }).join("") + "</div></div>"
+      : "";
+    var roles = p.roles.map(function (r) { return '<div class="role"><h4>' + esc(r.h) + "</h4>" + ul(r.items) + "</div>"; }).join("");
+    var trouble = '<div class="trouble">' + p.trouble.map(function (t) {
+      return '<div class="trouble__i"><b>' + esc(t.p) + "</b><span>" + esc(t.s) + "</span></div>";
+    }).join("") + "</div>";
+    var tags = '<div class="chips" style="margin-top:0">' + p.stack.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>";
+    var repo = p.repo
+      ? '<div class="case__repo"><a class="pill" href="' + p.repo + '" target="_blank" rel="noopener">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.8 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/></svg>' +
+        "GitHub 저장소 보기</a></div>"
+      : '<div class="case__repo"><span class="soon">저장소 준비 중 · 곧 공개 예정</span></div>';
+
+    dlgBody.innerHTML =
+      '<div class="case__head">' +
+        '<div>' +
+          '<span class="plate__tag"><i></i>Project ' + esc(p.no) + ' · ' + esc(p.year) + '</span>' +
+          '<h2 class="case__title" id="dlgTitle">' + titleMarkup(p) + '</h2>' +
+          (p.ko ? '<p class="plate__sub">' + esc(p.ko) + '</p>' : '') +
+          '<p class="case__meta"><span>' + esc(p.dim) + '</span><span>' + esc(p.period) + '</span></p>' +
+        '</div>' +
+        '<button class="case__x" type="button" aria-label="닫기">&times;</button>' +
+      '</div>' +
+      '<div class="case__block"><p class="case__label">개요</p><p class="case__summary">' + esc(p.desc) + '</p></div>' +
+      gallery +
+      '<div class="case__block"><p class="case__label">기술 스택</p>' + tags + '</div>' +
+      '<div class="case__block"><p class="case__label">담당 역할 및 기여</p>' + roles + '</div>' +
+      '<div class="case__block"><p class="case__label">트러블슈팅</p>' + trouble + '</div>' +
+      '<div class="case__block"><p class="case__label">성과 및 결과</p>' + ul(p.outcomes) + '</div>' +
+      '<div class="case__block"><p class="case__label">회고</p><dl class="retro">' +
+        '<div><dt>잘한 점</dt><dd>' + esc(p.retro.good) + '</dd></div>' +
+        '<div><dt>아쉬운 점</dt><dd>' + esc(p.retro.bad) + '</dd></div>' +
+        '<div><dt>배운 점</dt><dd>' + esc(p.retro.learned) + '</dd></div>' +
+      '</dl></div>' +
+      repo;
+
+    dlgBody.querySelector(".case__x").addEventListener("click", close);
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    dlgBody.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+  }
+  function close() { if (dlg.close) dlg.close(); else dlg.removeAttribute("open"); }
+  dlg.addEventListener("close", function () {
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  });
+  dlg.addEventListener("click", function (e) {
+    var r = dlgBody.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) close();
+  });
+
+  function checkHash() {
+    var m = location.hash.match(/^#project=(.+)$/);
+    if (!m) return;
+    var idx = projects.findIndex(function (p) { return p.id === m[1]; });
+    if (idx > -1) openCase(idx);
+  }
+  addEventListener("hashchange", checkHash);
+  checkHash();
+})();
+</script>
+</body>
+</html>
