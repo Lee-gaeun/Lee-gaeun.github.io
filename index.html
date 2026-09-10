@@ -401,25 +401,92 @@
   }
   .case__label::before { content: ""; width: 9px; height: 9px; border-radius: 2px; background: var(--accent, var(--cobalt)); }
   .case__summary { margin: 0; line-height: 1.7; }
-  .role { margin-bottom: 1.15rem; }
-  .role:last-child { margin-bottom: 0; }
-  .role h4 { font-size: 1rem; margin-bottom: .45rem; }
+  /* fact strip */
+  .facts {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    margin: 0 0 1.9rem; background: var(--line);
+    border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden;
+  }
+  @media (max-width: 520px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+  .facts > div { background: var(--paper-2); padding: .8rem .9rem; display: grid; gap: .15rem; }
+  .facts dt {
+    font-family: var(--f-mono); font-size: .68rem; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint);
+  }
+  .facts dd { margin: 0; font-size: var(--s-sm); font-weight: 700; }
+
+  /* role → keyword / description pairs */
+  .roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem 2rem; }
+  .role__h {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: var(--s-sm); margin: 0 0 .8rem;
+    padding-bottom: .5rem; border-bottom: 2px solid var(--accent, var(--cobalt));
+  }
+  .role__h em {
+    font-style: normal; font-family: var(--f-mono); font-size: .68rem; font-weight: 500;
+    color: var(--paper); background: var(--accent-ink, var(--cobalt));
+    border-radius: 999px; padding: .1rem .42rem;
+  }
+  .kv { margin: 0; display: grid; gap: .7rem; }
+  .kv > div { display: grid; gap: .1rem; }
+  .kv dt { font-weight: 700; font-size: .93rem; }
+  .kv dd { margin: 0; font-size: var(--s-sm); color: var(--ink-soft); line-height: 1.5; }
+
+  /* troubleshooting → 문제 / 해결 */
+  .trouble { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; counter-reset: tr; }
+  .tr {
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+    padding: 1rem 1.1rem; background: var(--paper);
+  }
+  .tr__h {
+    font-size: .95rem; margin: 0 0 .7rem;
+    display: flex; align-items: baseline; gap: .5rem;
+  }
+  .tr__h::before {
+    counter-increment: tr; content: counter(tr);
+    font-family: var(--f-mono); font-size: .68rem; font-weight: 600;
+    color: var(--paper); background: var(--accent-ink, var(--cobalt));
+    border-radius: 4px; padding: .1rem .38rem; flex: none;
+  }
+  .tr__row { display: grid; grid-template-columns: 3rem 1fr; gap: .7rem; align-items: start; }
+  .tr__row + .tr__row { margin-top: .5rem; padding-top: .5rem; border-top: 1px dashed var(--line); }
+  .tr__row p { margin: 0; font-size: var(--s-sm); color: var(--ink-soft); line-height: 1.55; }
+  .tr__tag {
+    font-family: var(--f-mono); font-size: .66rem; font-weight: 600;
+    letter-spacing: .06em; text-align: center;
+    border-radius: 4px; padding: .18rem 0; margin-top: .1rem;
+  }
+  .tr__row--p .tr__tag { background: color-mix(in srgb, var(--coral) 14%, var(--paper)); color: var(--coral-ink); }
+  .tr__row--s .tr__tag { background: color-mix(in srgb, var(--cobalt) 14%, var(--paper)); color: var(--cobalt-ink); }
+
+  /* outcomes */
+  .wins { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+  .wins li {
+    display: grid; grid-template-columns: 1.15rem 1fr; gap: .65rem; align-items: start;
+    font-size: .94rem; line-height: 1.55;
+  }
+  .wins li::before {
+    content: ""; width: 1.15rem; height: 1.15rem; margin-top: .1rem; border-radius: 50%;
+    background:
+      linear-gradient(var(--accent-ink, var(--cobalt)), var(--accent-ink, var(--cobalt))) no-repeat center/.42rem .42rem,
+      color-mix(in srgb, var(--accent, var(--cobalt)) 14%, transparent);
+  }
+
+  /* retrospective cards */
+  .retro { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+  @media (max-width: 680px) { .retro { grid-template-columns: 1fr; } }
+  .retro__c { padding: .9rem 1rem; border-radius: var(--r-sm); background: var(--paper-2); border-top: 3px solid var(--line-strong); }
+  .retro__c h4 { font-size: var(--s-sm); margin: 0 0 .35rem; }
+  .retro__c p { margin: 0; font-size: var(--s-sm); color: var(--ink-soft); line-height: 1.55; }
+  .retro__c--good  { border-top-color: var(--cobalt); }
+  .retro__c--bad   { border-top-color: var(--coral); }
+  .retro__c--learn { border-top-color: var(--amber); }
+
   .case ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .55rem; }
   .case ul li { color: var(--ink-soft); line-height: 1.62; font-size: .95rem; }
   .case ul li::marker { color: var(--accent, var(--cobalt)); }
-  .trouble { display: grid; gap: .7rem; }
-  .trouble__i {
-    padding: .9rem 1.05rem; border-radius: var(--r-sm);
-    background: color-mix(in srgb, var(--accent, var(--cobalt)) 7%, var(--paper));
-    border-left: 3px solid var(--accent, var(--cobalt));
-  }
-  .trouble__i b { display: block; margin-bottom: .2rem; }
-  .trouble__i span { color: var(--ink-soft); font-size: var(--s-sm); line-height: 1.55; }
-  .retro { display: grid; gap: .7rem; margin: 0; }
-  .retro > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: .8rem 1rem; background: var(--paper-2); border-radius: var(--r-sm); }
-  .retro dt { font-weight: 700; font-size: var(--s-sm); }
-  .retro dd { margin: 0; color: var(--ink-soft); line-height: 1.55; font-size: var(--s-sm); }
-  @media (max-width: 540px) { .retro > div { grid-template-columns: 1fr; gap: .2rem; } }
+  .case .wins li, .case .wins { padding-left: 0; }
+  .case .wins li { color: var(--ink); }
   .case__repo { margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
   .case__repo .soon { font-family: var(--f-mono); font-size: var(--s-sm); color: var(--ink-faint); }
 
@@ -653,7 +720,8 @@
     {
       id: "pick-n-pay", accent: "cobalt", no: "01",
       name: "Pick&Pay", ko: "소상공인 및 근로자 통합관리 서비스", year: "2026",
-      dim: "3인 팀 · 풀스택", period: "2026.06",
+      team: "3인 팀", role: "백엔드 · 프론트엔드", period: "2026.06",
+      cover: "1-1.png",
       images: [
         { src: "1-1.png", cap: "랜딩 페이지 — 서비스 소개와 핵심 기능" },
         { src: "1-2.png", cap: "관리 대시보드 — 월별 근무 캘린더와 일별 급여" },
@@ -666,48 +734,53 @@
         "공공 정책 API → DB 자동 수집 → AI 요약 파이프라인 구축",
         "Spring Security + JWT 기반 인증·인가 설계"
       ],
-      desc: "사장님과 알바생을 잇는 스마트 알바 관리 플랫폼. 카카오·이메일 인증 로그인부터 출퇴근 기록, 근무 수정 요청, 급여 계산, 소상공인 지원금 정책 API 연동과 AI 요약까지 담당했습니다.",
-      stack: ["Vue 3", "TypeScript", "Pinia", "Vite", "Axios", "Spring Boot", "Spring Security", "JWT", "MyBatis", "MySQL", "Spring Batch", "Spring WebFlux (WebClient)"],
+      desc: "사장님과 알바생을 잇는 스마트 알바 관리 플랫폼입니다. 카카오·이메일 인증 로그인부터 출퇴근 기록, 근무 수정 요청, 급여 계산, 소상공인 지원금 정책 API 연동과 AI 요약까지 담당했습니다.",
+      stack: ["Vue 3", "TypeScript", "Pinia", "Vite", "Axios", "Spring Boot", "Spring Security", "JWT", "MyBatis", "MySQL", "Spring Batch", "Spring WebFlux"],
       roles: [
         { h: "백엔드", items: [
-          "카카오 OAuth2 인가코드 기반 자동 가입·로그인 로직 구현",
-          "이메일 인증 코드 발송·검증 후 JWT 토큰 발급 처리",
-          "Spring Security 필터 기반 전체 API 인증·인가 흐름 구성",
-          "역할(OWNER / WORKER) 전환 시 JWT 재발급 로직 구현",
-          "출퇴근 기록 등록(POST /work_records) 및 근무 수정 요청 처리",
-          "Spring Batch로 공공 정책 API 주기적 자동 수집·저장",
-          "Spring WebFlux(WebClient)로 외부 정책 API 비동기 호출",
-          "대상(OWNER / WORKER) 필터 기반 맞춤 정책 목록 제공",
-          "AI API 연동으로 조건 기반 정책 추천(PolicyAiService) 구현"
+          { k: "카카오 OAuth2", v: "인가코드 기반 자동 가입·로그인 로직 구현" },
+          { k: "이메일 인증", v: "인증 코드 발송·검증 후 JWT 토큰 발급" },
+          { k: "Spring Security", v: "필터 기반 전체 API 인증·인가 흐름 구성" },
+          { k: "역할 전환", v: "OWNER / WORKER 전환 시 JWT 재발급" },
+          { k: "출퇴근 기록", v: "POST /work_records 등록 및 근무 수정 요청 처리" },
+          { k: "Spring Batch", v: "공공 정책 API 주기적 자동 수집·저장" },
+          { k: "WebFlux", v: "WebClient로 외부 정책 API 비동기 호출" },
+          { k: "맞춤 정책", v: "대상(OWNER / WORKER) 필터 기반 목록 제공" },
+          { k: "AI 추천", v: "PolicyAiService로 조건 기반 정책 추천" }
         ]},
         { h: "프론트엔드", items: [
-          "근무 기록 캘린더 뷰 구현 (월별 근무일 시각화, 당월 총 근무시간 표시)",
-          "급여 확인서 화면 구현 (기본급·주휴수당·야간수당·공휴일수당·공제 항목 상세)",
-          "Pinia로 로그인 정보 전역 상태 관리",
-          "지원금 정책 목록 및 즐겨찾기(북마크) 기능 구현"
+          { k: "근무 캘린더", v: "월별 근무일 시각화, 당월 총 근무시간 표시" },
+          { k: "급여 확인서", v: "기본급·주휴·야간·공휴일수당·공제 항목 상세" },
+          { k: "전역 상태", v: "Pinia로 로그인 정보 관리" },
+          { k: "지원금 정책", v: "목록 및 즐겨찾기(북마크) 기능" }
         ]}
       ],
       trouble: [
-        { p: "이메일 인증 코드 타임아웃", s: "이메일 응답 지연으로 회원가입 요청 타임아웃 발생 → 비동기 처리(@Async) 전환 및 이메일 중복 체크 API 분리로 해결" },
-        { p: "Storage 보안 이슈", s: "localStorage 토큰 저장으로 브라우저 재시작 후에도 자동 로그인이 유지되는 문제 → SessionStorage 전환으로 브라우저 종료 시 자동 로그아웃" }
+        { t: "이메일 인증 코드 타임아웃",
+          p: "이메일 응답 지연으로 회원가입 요청이 타임아웃",
+          s: "비동기 처리(@Async) 전환 + 이메일 중복 체크 API 분리" },
+        { t: "Storage 보안 이슈",
+          p: "localStorage 토큰 저장으로 브라우저 재시작 후에도 자동 로그인 유지",
+          s: "SessionStorage 전환으로 브라우저 종료 시 자동 로그아웃" }
       ],
       outcomes: [
-        "카카오·이메일 인증 기반 로그인 흐름 전체 단독 구현",
-        "근무 수정 요청 → 사장님 실시간 알림 → 승인/거절까지 이어지는 흐름 설계",
-        "공공 정책 API(XML/JSON) → DB 자동 수집·저장 → AI 요약까지 전체 파이프라인 구축",
-        "Spring Security + JWT 기반 인증/인가 실무 경험 축적"
+        "카카오·이메일 인증 로그인 흐름 전체 단독 구현",
+        "근무 수정 요청 → 실시간 알림 → 승인/거절 흐름 설계",
+        "공공 정책 API(XML/JSON) → DB 자동 수집 → AI 요약 파이프라인 구축",
+        "Spring Security + JWT 인증·인가 실무 경험 축적"
       ],
       retro: {
         good: "비동기 처리로 이메일 인증 지연 문제를 근본적으로 해결",
-        bad: "AI 활용이 단순 텍스트 요약에 그쳐, 매장 규모·업종을 반영한 개인화 추천까지는 이어지지 못함",
-        learned: "인증 토큰 저장 방식(localStorage vs SessionStorage) 선택이 보안과 사용자 경험 모두에 영향을 준다는 것을 실전에서 체득"
+        bad: "AI 활용이 단순 텍스트 요약에 그쳐, 매장 규모·업종을 반영한 개인화 추천까지는 가지 못함",
+        learned: "토큰 저장 방식(localStorage vs SessionStorage) 선택이 보안과 UX 모두에 영향을 준다는 것"
       },
       repo: "https://github.com/Lee-gaeun/pick-n-pay"
     },
     {
       id: "homebuddy-terms", accent: "coral", no: "02",
       name: "HOMEBUDDY", ko: "부동산 용어해설집 기능", year: "2025",
-      dim: "8인 팀 · 백엔드·프론트엔드", period: "2025.07 – 08 · 6주",
+      team: "8인 팀", role: "백엔드 · 프론트엔드", period: "2025.07 – 08 · 6주",
+      cover: "2-1.png",
       images: [
         { src: "2-1.png", cap: "용어해설집 전체 목록 — 검색과 카테고리 필터" },
         { src: "2-2.png", cap: "카테고리 배지가 붙은 용어 카드 컴포넌트" }
@@ -718,43 +791,47 @@
         "카테고리 색상을 DB에서 관리해 프론트 수정 없이 반영",
         "카드·모달 컴포넌트 4종 분리로 재사용성 확보"
       ],
-      desc: "전세 계약 시 자주 등장하는 법률·부동산 용어를 검색하고 카테고리별로 필터링할 수 있는 용어 해설집. 백엔드 REST API와 Vue 3 컴포넌트를 단독으로 설계·구현했습니다.",
+      desc: "전세 계약 시 자주 등장하는 법률·부동산 용어를 검색하고 카테고리별로 필터링할 수 있는 용어 해설집입니다. 백엔드 REST API와 Vue 3 컴포넌트를 단독으로 설계·구현했습니다.",
       stack: ["Spring Legacy MVC", "MyBatis", "MySQL", "Vue 3", "Bootstrap 5"],
       roles: [
         { h: "백엔드", items: [
-          "용어 해설집 REST API 설계 및 구현 (Controller · Service · Mapper 레이어)",
-          "keyword · categoryId를 Map으로 묶어 MyBatis 동적 쿼리로 전달",
-          "TermDTO에 카테고리명·카테고리 색상을 조인해 한 번에 반환"
+          { k: "REST API 설계", v: "Controller · Service · Mapper 레이어 구현" },
+          { k: "동적 쿼리", v: "keyword · categoryId를 Map으로 묶어 MyBatis에 전달" },
+          { k: "DTO 조인", v: "TermDTO에 카테고리명·색상을 조인해 한 번에 반환" }
         ]},
         { h: "프론트엔드", items: [
-          "TermView — 전체 용어 목록 페이지 Vue 3 Options API로 구현",
-          "TermCard — 용어명·카테고리 배지·정의 미리보기 카드 컴포넌트",
-          "TermModal — 정의·주의·예시 상세 모달 컴포넌트",
-          "TermViewModal — 검색·필터·카드 목록을 모두 포함하는 중첩 모달 구조",
-          "computed로 클라이언트 사이드 실시간 검색·카테고리 필터·가나다순 정렬 처리"
+          { k: "TermView", v: "전체 용어 목록 페이지 (Vue 3 Options API)" },
+          { k: "TermCard", v: "용어명·카테고리 배지·정의 미리보기 카드" },
+          { k: "TermModal", v: "정의·주의·예시 상세 모달" },
+          { k: "TermViewModal", v: "검색·필터·카드 목록을 포함한 중첩 모달" },
+          { k: "실시간 필터", v: "computed로 검색·카테고리 필터·가나다순 정렬" }
         ]}
       ],
       trouble: [
-        { p: "클라이언트 필터링", s: "검색마다 API 재호출 시 UX 저하 → 최초 1회 fetch 후 computed로 실시간 필터링" },
-        { p: "중첩 모달 z-index 충돌", s: "TermViewModal 2000 / 내부 TermModal 2100으로 레이어 명시 분리" }
+        { t: "검색마다 API 재호출",
+          p: "매 검색마다 서버를 다시 호출해 응답 대기가 생기며 UX 저하",
+          s: "최초 1회 fetch 후 computed로 클라이언트 사이드 필터링" },
+        { t: "중첩 모달 z-index 충돌",
+          p: "모달 안에서 연 모달이 바깥 모달 뒤로 깔림",
+          s: "TermViewModal 2000 / 내부 TermModal 2100으로 레이어 명시 분리" }
       ],
       outcomes: [
-        "단일 API 호출 + computed 필터링으로 추가 네트워크 요청 없는 즉각 반응 UX",
+        "단일 API 호출 + computed 필터링으로 추가 요청 없는 즉각 반응 UX",
         "카테고리 색상 DB 관리로 프론트 코드 수정 없이 색상 동적 반영",
-        "TermCard · TermModal · TermViewModal 컴포넌트 분리로 재사용성 확보",
+        "TermCard · TermModal · TermViewModal 분리로 재사용성 확보",
         "MyBatis 동적 쿼리로 전체/검색/필터를 단일 Mapper에서 통합 처리"
       ],
       retro: {
         good: "computed로 검색·필터·정렬을 선언적으로 통합해 코드 간결성 확보",
-        bad: "용어 수 증가 시 초기 로딩 부하 → 하이브리드 검색 아키텍처(서버 페이징 + 가상 스크롤) 필요성 인지",
-        learned: "중첩 모달은 처음부터 z-index 계층을 명시적으로 설계해야 함"
+        bad: "용어 수가 늘면 초기 로딩 부하 — 서버 페이징 + 가상 스크롤 필요성 인지",
+        learned: "중첩 모달은 처음부터 z-index 계층을 명시적으로 설계해야 한다는 것"
       },
       repo: "https://github.com/Lee-gaeun/mouem-zip"
     },
     {
       id: "jeonse-ratio", accent: "amber", no: "03",
       name: "HOMEBUDDY", ko: "전세가율 분석 서비스", year: "2025",
-      dim: "개인 프로젝트 · 풀스택", period: "2025.10 – 12",
+      team: "개인", role: "백엔드 · 프론트엔드", period: "2025.10 – 12",
       cover: "3-2.png",
       images: [
         { src: "3-1.png", cap: "주소·아파트 검색 — 카카오 우편번호 API로 법정동 코드 자동 추출" },
@@ -771,39 +848,43 @@
       stack: ["Spring Legacy MVC", "Lombok", "Jackson XML", "RestTemplate", "Vue 3", "Chart.js"],
       roles: [
         { h: "백엔드", items: [
-          "JeonseController — REST API 3개 엔드포인트 설계 및 구현",
-          "JeonseServiceImpl — 전세가율 계산, 매매가 추정, 시계열 샘플링 로직 구현",
-          "JeonseOpenApiClient — 국토교통부 Open API 연동 (RestTemplate + UriComponentsBuilder)",
-          "AptRentResponse / AptTradeResponse — XML 응답 역직렬화 도메인 모델 설계",
-          "AptRentMapper — 도메인 객체 → DTO 변환 레이어 구현"
+          { k: "JeonseController", v: "REST API 3개 엔드포인트 설계·구현" },
+          { k: "JeonseServiceImpl", v: "전세가율 계산 · 매매가 추정 · 시계열 샘플링" },
+          { k: "JeonseOpenApiClient", v: "국토교통부 Open API 연동 (RestTemplate + UriComponentsBuilder)" },
+          { k: "응답 모델", v: "AptRentResponse / AptTradeResponse XML 역직렬화 설계" },
+          { k: "AptRentMapper", v: "도메인 객체 → DTO 변환 레이어" }
         ]},
         { h: "프론트엔드", items: [
-          "카카오 우편번호 API 연동으로 주소 선택 시 법정동 코드 자동 추출 (bcode 앞 5자리 → LAWD_CD)",
-          "Chart.js 4를 활용한 꺾은선 / 막대 그래프 동적 전환 구현",
-          "백엔드 JSON 응답 → 차트 라벨·데이터 바인딩 및 평균 전세가율 실시간 계산"
+          { k: "주소 검색", v: "카카오 우편번호 API로 법정동 코드 자동 추출 (bcode 앞 5자리 → LAWD_CD)" },
+          { k: "차트", v: "Chart.js 4 꺾은선 / 막대 동적 전환" },
+          { k: "데이터 바인딩", v: "백엔드 JSON → 차트 라벨·데이터 + 평균 전세가율 실시간 계산" }
         ]}
       ],
       trouble: [
-        { p: "XML items 파싱 null", s: "@JacksonXmlElementWrapper(useWrapping = false) 누락으로 item 리스트 null 반환 → 어노테이션 추가로 해결" },
-        { p: "페이지네이션 과다 호출", s: "5페이지 단순 루프로 불필요한 API 재호출 발생 → totalCount 비교 및 rows < pageSize 조건으로 조기 종료" }
+        { t: "XML items 파싱 null",
+          p: "@JacksonXmlElementWrapper(useWrapping = false) 누락으로 item 리스트가 null 반환",
+          s: "어노테이션을 추가해 래핑 없는 XML 배열을 정상 역직렬화" },
+        { t: "페이지네이션 과다 호출",
+          p: "5페이지 단순 루프로 불필요한 API 재호출 발생",
+          s: "totalCount 비교 및 rows < pageSize 조건으로 조기 종료" }
       ],
       outcomes: [
         "Spring Legacy MVC + Gradle + WAR 배포 전 과정 직접 구성",
-        "공공 API(XML) → DTO → REST JSON 전체 데이터 파이프라인 단독 구현",
-        "Chart.js 꺾은선/막대 동적 전환 시각화 UI 구현",
-        "실무적 환경 이슈(Gradle · JVM · Lombok) 해결 경험 축적"
+        "공공 API(XML) → DTO → REST JSON 파이프라인 단독 구현",
+        "Chart.js 꺾은선/막대 동적 전환 시각화 구현",
+        "실무 환경 이슈(Gradle · JVM · Lombok) 해결 경험 축적"
       ],
       retro: {
-        good: "레이어 분리로 API 장애 시 더미 데이터 즉시 대체 성공",
+        good: "레이어를 분리해 API 장애 시 더미 데이터로 즉시 대체 가능했던 점",
         bad: "API 키 평문 관리, 캐싱 미적용으로 반복 호출 시 성능 저하",
-        learned: "baseURL · proxy · CORS 세 가지를 함께 고려해야 함을 실전 체득"
+        learned: "baseURL · proxy · CORS 세 가지를 함께 고려해야 한다는 것"
       },
       repo: null
     },
     {
       id: "vocab-db", accent: "ink", no: "04",
       name: "단어 학습 서비스 DB 설계", ko: "", year: "2024",
-      dim: "개인 프로젝트 · DB 설계", period: "2024.12",
+      team: "개인", role: "DB 설계", period: "2024.12",
       cover: "4-3.png",
       images: [
         { src: "4-1.png", cap: "요구사항 명세서 — 8개 도메인 36개 기능 항목" },
@@ -818,30 +899,34 @@
         "MySQL 테이블 생성 + 3중 JOIN 조인 쿼리 5개 구현"
       ],
       desc: "Quizlet · VocaTrain · VOCAT 등 단어 학습 플랫폼을 벤치마킹해 회원 관리, 구독 결제, 카드세트, 테스트 제작, 달력 목표 관리 기능을 포함하는 서비스의 데이터베이스를 개념적·논리적·물리적 설계 3단계로 완성했습니다.",
-      stack: ["MySQL", "ER-Diagram", "관계형 데이터베이스 설계"],
+      stack: ["MySQL", "ER-Diagram", "관계형 DB 설계"],
       roles: [
-        { h: "담당 역할 및 기여", items: [
-          "요구사항 명세서 36개 기능 항목 직접 정의 (회원·결제·뱃지·교과서·클래스·카드세트·테스트·달력 8개 도메인)",
-          "1차 ER-Diagram 작성 후 문제점 분석 — 중복 데이터·관계 특성 파악 오류 발견",
-          "2차 ER-Diagram 개선 — 다대다(m:n) 관계를 관계 릴레이션으로 분리, 복합·다중값 속성 고려",
-          "논리적 설계 — ER-Diagram 기반 릴레이션 스키마 정의 및 도메인 정리",
-          "물리적 설계 — MySQL로 전체 테이블 생성, 데이터 삽입, 조인 쿼리 5개 작성"
+        { h: "설계 과정", items: [
+          { k: "요구사항 정의", v: "36개 기능 항목을 8개 도메인으로 정리 (회원·결제·뱃지·교과서·클래스·카드세트·테스트·달력)" },
+          { k: "1차 ER-Diagram", v: "작성 후 중복 데이터·관계 특성 파악 오류 발견" },
+          { k: "2차 ER-Diagram", v: "m:n 관계를 관계 릴레이션으로 분리, 복합·다중값 속성 고려" },
+          { k: "논리적 설계", v: "ER-Diagram 기반 릴레이션 스키마 정의 및 도메인 정리" },
+          { k: "물리적 설계", v: "MySQL 테이블 생성 · 데이터 삽입 · 조인 쿼리 5개 작성" }
         ]}
       ],
       trouble: [
-        { p: "1차 ER-Diagram 중복 데이터", s: "개체 중심 설계로 m:n 관계 속성을 개체에 넣어 중복 발생 → 2차에서 관계 릴레이션으로 분리" },
-        { p: "복합·다중값 속성 처리", s: "관심과목·알림 등 다중값을 단일 컬럼으로 처리 시 1NF 위반 → 별도 테이블 분리" }
+        { t: "1차 ER-Diagram 중복 데이터",
+          p: "개체 중심 설계로 m:n 관계 속성을 개체에 넣어 중복 발생",
+          s: "2차 설계에서 관계 릴레이션으로 분리" },
+        { t: "복합·다중값 속성 처리",
+          p: "관심과목·알림 등 다중값을 단일 컬럼으로 처리하면 1NF 위반",
+          s: "별도 테이블로 분리" }
       ],
       outcomes: [
         "요구사항 36개를 8개 도메인으로 구조화해 전체 DB 설계 완성",
-        "1차 → 2차 ER-Diagram 반복 개선으로 관계형 DB 설계 핵심 원칙 체득",
-        "MySQL 전체 테이블 생성 + 조인 쿼리 5개 (3중 JOIN · COUNT · GROUP BY) 구현",
+        "1차 → 2차 반복 개선으로 관계형 DB 설계 핵심 원칙 체득",
+        "MySQL 테이블 생성 + 조인 쿼리 5개 (3중 JOIN · COUNT · GROUP BY)",
         "설계한 스키마의 실제 동작을 물리적 설계 단계에서 직접 검증"
       ],
       retro: {
         good: "1차 설계 문제를 스스로 발견하고 관계 중심으로 전면 재설계한 점",
         bad: "뱃지 초기화·구독 만료 등 시간 기반 이벤트를 트리거·스케줄러로 구현하지 못한 점",
-        learned: "m:n 관계는 반드시 별도 릴레이션으로 분리, 관계 자체도 속성을 가질 수 있음을 직접 체득"
+        learned: "m:n 관계는 반드시 별도 릴레이션으로 분리하고, 관계 자체도 속성을 가질 수 있다는 것"
       },
       repo: null
     }
@@ -916,7 +1001,7 @@
         '<div class="chips">' + chips + '</div>' +
         '<div class="plate__row">' +
           '<button class="btn" type="button" aria-haspopup="dialog">자세히 보기 ' + arrow + '</button>' +
-          '<span class="plate__meta">' + esc(p.dim) + ' · ' + esc(p.period) + '</span>' +
+          '<span class="plate__meta">' + esc(p.team) + ' · ' + esc(p.role) + ' · ' + esc(p.period) + '</span>' +
         '</div>' +
       '</div>';
 
@@ -945,10 +1030,29 @@
           "</figure>";
         }).join("") + "</div></div>"
       : "";
-    var roles = p.roles.map(function (r) { return '<div class="role"><h4>' + esc(r.h) + "</h4>" + ul(r.items) + "</div>"; }).join("");
-    var trouble = '<div class="trouble">' + p.trouble.map(function (t) {
-      return '<div class="trouble__i"><b>' + esc(t.p) + "</b><span>" + esc(t.s) + "</span></div>";
+    var roles = '<div class="roles">' + p.roles.map(function (r) {
+      return '<section class="role">' +
+        '<h4 class="role__h"><span>' + esc(r.h) + "</span><em>" + r.items.length + "</em></h4>" +
+        '<dl class="kv">' + r.items.map(function (it) {
+          return "<div><dt>" + esc(it.k) + "</dt><dd>" + esc(it.v) + "</dd></div>";
+        }).join("") + "</dl>" +
+      "</section>";
     }).join("") + "</div>";
+
+    var trouble = '<ol class="trouble">' + p.trouble.map(function (t) {
+      return '<li class="tr">' +
+        '<h4 class="tr__h">' + esc(t.t) + "</h4>" +
+        '<div class="tr__row tr__row--p"><span class="tr__tag">문제</span><p>' + esc(t.p) + "</p></div>" +
+        '<div class="tr__row tr__row--s"><span class="tr__tag">해결</span><p>' + esc(t.s) + "</p></div>" +
+      "</li>";
+    }).join("") + "</ol>";
+
+    var facts = '<dl class="facts">' +
+      "<div><dt>기간</dt><dd>" + esc(p.period) + "</dd></div>" +
+      "<div><dt>참여</dt><dd>" + esc(p.team) + "</dd></div>" +
+      "<div><dt>역할</dt><dd>" + esc(p.role) + "</dd></div>" +
+      "<div><dt>스택</dt><dd>" + p.stack.length + "종</dd></div>" +
+    "</dl>";
     var tags = '<div class="chips" style="margin-top:0">' + p.stack.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>";
     var repo = p.repo
       ? '<div class="case__repo"><a class="pill" href="' + p.repo + '" target="_blank" rel="noopener">' +
@@ -962,21 +1066,23 @@
           '<span class="plate__tag"><i></i>Project ' + esc(p.no) + ' · ' + esc(p.year) + '</span>' +
           '<h2 class="case__title" id="dlgTitle">' + titleMarkup(p) + '</h2>' +
           (p.ko ? '<p class="plate__sub">' + esc(p.ko) + '</p>' : '') +
-          '<p class="case__meta"><span>' + esc(p.dim) + '</span><span>' + esc(p.period) + '</span></p>' +
+
         '</div>' +
         '<button class="case__x" type="button" aria-label="닫기">&times;</button>' +
       '</div>' +
+      facts +
       '<div class="case__block"><p class="case__label">개요</p><p class="case__summary">' + esc(p.desc) + '</p></div>' +
       gallery +
       '<div class="case__block"><p class="case__label">기술 스택</p>' + tags + '</div>' +
       '<div class="case__block"><p class="case__label">담당 역할 및 기여</p>' + roles + '</div>' +
       '<div class="case__block"><p class="case__label">트러블슈팅</p>' + trouble + '</div>' +
-      '<div class="case__block"><p class="case__label">성과 및 결과</p>' + ul(p.outcomes) + '</div>' +
-      '<div class="case__block"><p class="case__label">회고</p><dl class="retro">' +
-        '<div><dt>잘한 점</dt><dd>' + esc(p.retro.good) + '</dd></div>' +
-        '<div><dt>아쉬운 점</dt><dd>' + esc(p.retro.bad) + '</dd></div>' +
-        '<div><dt>배운 점</dt><dd>' + esc(p.retro.learned) + '</dd></div>' +
-      '</dl></div>' +
+      '<div class="case__block"><p class="case__label">성과 및 결과</p><ul class="wins">' +
+        p.outcomes.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul></div>" +
+      '<div class="case__block"><p class="case__label">회고</p><div class="retro">' +
+        '<div class="retro__c retro__c--good"><h4>잘한 점</h4><p>' + esc(p.retro.good) + '</p></div>' +
+        '<div class="retro__c retro__c--bad"><h4>아쉬운 점</h4><p>' + esc(p.retro.bad) + '</p></div>' +
+        '<div class="retro__c retro__c--learn"><h4>배운 점</h4><p>' + esc(p.retro.learned) + '</p></div>' +
+      '</div></div>' +
       repo;
 
     dlgBody.querySelector(".case__x").addEventListener("click", close);
