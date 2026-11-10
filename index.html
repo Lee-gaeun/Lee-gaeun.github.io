@@ -925,9 +925,6 @@
         { t: "급여명세서 PDF 한글 전부 깨짐",
           p: "시스템 폰트 malgun.ttc가 OpenType Collection이라 PDFBox가 지원하지 않음",
           s: "NanumGothic TTF를 classpath에 번들하고 FSSupplier로 공급, 없으면 OS별 시스템 폰트를 순회하는 2단계 폴백으로 실행 환경과 무관하게 동일 출력 보장" },
-        { t: "공공데이터 API 응답 파싱 실패",
-          p: "JSON을 가정했으나 실제 응답이 XML",
-          s: "XmlMapper로 직접 역직렬화하고, totalCount와 누적 수집량을 비교하는 종료 조건으로 페이지네이션 루프 구현" },
         { t: "TooManyResultsException 발생",
           p: "재입사 이력으로 store_members에 동일 (매장, 사용자) 행이 중복 존재",
           s: "status != INACTIVE 필터와 ORDER BY joined_at DESC LIMIT 1로 최신 재직 정보만 조회하도록 수정" },
@@ -983,10 +980,7 @@
       trouble: [
         { t: "검색마다 API 재호출",
           p: "매 검색마다 서버를 다시 호출해 응답 대기가 생기며 UX 저하",
-          s: "최초 1회 fetch 후 computed로 클라이언트 사이드 필터링" },
-        { t: "중첩 모달 z-index 충돌",
-          p: "모달 안에서 연 모달이 바깥 모달 뒤로 깔림",
-          s: "TermViewModal 2000 / 내부 TermModal 2100으로 레이어 명시 분리" }
+          s: "최초 1회 fetch 후 computed로 클라이언트 사이드 필터링" }
       ],
       outcomes: [
         "단일 API 호출 + computed 필터링으로 추가 요청 없는 즉각 반응 UX",
@@ -997,7 +991,7 @@
       retro: {
         good: "computed로 검색·필터·정렬을 선언적으로 통합해 코드 간결성 확보",
         bad: "용어 수가 늘면 초기 로딩 부하 — 서버 페이징 + 가상 스크롤 필요성 인지",
-        learned: "중첩 모달은 처음부터 z-index 계층을 명시적으로 설계해야 한다는 것"
+        learned: "데이터 규모에 따라 클라이언트 필터링과 서버 검색 중 어디서 처리할지 경계를 정해야 한다는 것"
       },
       repo: "https://github.com/Lee-gaeun/mouem-zip"
     },
@@ -1034,9 +1028,6 @@
         ]}
       ],
       trouble: [
-        { t: "XML items 파싱 null",
-          p: "@JacksonXmlElementWrapper(useWrapping = false) 누락으로 item 리스트가 null 반환",
-          s: "어노테이션을 추가해 래핑 없는 XML 배열을 정상 역직렬화" },
         { t: "페이지네이션 과다 호출",
           p: "5페이지 단순 루프로 불필요한 API 재호출 발생",
           s: "totalCount 비교 및 rows < pageSize 조건으로 조기 종료" }
