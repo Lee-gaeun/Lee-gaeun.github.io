@@ -26,6 +26,8 @@
     --cobalt-ink:  #2b47b5;
     --coral-ink:   #c0402c;
     --amber-ink:   #8a6212;
+    --teal:        #12968a;
+    --teal-ink:    #0b6e65;
     --shadow-sm:   0 1px 2px rgba(20,20,30,.05), 0 6px 18px -8px rgba(20,20,30,.12);
     --shadow-md:   0 2px 4px rgba(20,20,30,.05), 0 20px 44px -18px rgba(20,20,30,.22);
     --r:    16px;
@@ -62,6 +64,8 @@
       --cobalt-ink:  #93a7ff;
       --coral-ink:   #ff9280;
       --amber-ink:   #f5c96f;
+      --teal:        #3fd0c0;
+      --teal-ink:    #6fded1;
       --shadow-sm:   0 1px 2px rgba(0,0,0,.3), 0 8px 22px -10px rgba(0,0,0,.6);
       --shadow-md:   0 2px 4px rgba(0,0,0,.35), 0 24px 50px -20px rgba(0,0,0,.75);
     }
@@ -80,6 +84,8 @@
     --cobalt-ink:  #93a7ff;
     --coral-ink:   #ff9280;
     --amber-ink:   #f5c96f;
+    --teal:        #3fd0c0;
+    --teal-ink:    #6fded1;
     --shadow-sm:   0 1px 2px rgba(0,0,0,.3), 0 8px 22px -10px rgba(0,0,0,.6);
     --shadow-md:   0 2px 4px rgba(0,0,0,.35), 0 24px 50px -20px rgba(0,0,0,.75);
   }
@@ -250,8 +256,14 @@
   .bio__what p { margin: 0; color: var(--ink-soft); max-width: 44em; }
 
   /* ---------- tools ---------- */
-  .tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; }
-  @media (max-width: 900px) { .tools { grid-template-columns: repeat(2, 1fr); } }
+  .tools { display: grid; grid-template-columns: repeat(6, 1fr); gap: .9rem; }
+  .tool { grid-column: span 2; }
+  .tool:nth-child(n+4) { grid-column: span 3; }
+  @media (max-width: 900px) {
+    .tools { grid-template-columns: repeat(2, 1fr); }
+    .tool, .tool:nth-child(n+4) { grid-column: auto; }
+    .tool:last-child { grid-column: 1 / -1; }
+  }
   @media (max-width: 520px) { .tools { grid-template-columns: 1fr; } }
   .tool {
     padding: 1.35rem 1.35rem 1.5rem;
@@ -613,7 +625,7 @@
     <section class="band" id="tools">
       <div class="band__head">
         <h2 class="band__title">도구<em>Tools</em></h2>
-        <span class="band__count mono">Frontend · Backend · DB · Collab</span>
+        <span class="band__count mono">Frontend · Backend · Infra · DB · Collab</span>
       </div>
       <div class="tools">
         <div class="tool" style="--c: var(--cobalt)">
@@ -632,6 +644,16 @@
             <li><b>Spring / Spring MVC</b><span>웹 구조·흐름 이해 · CRUD API</span></li>
             <li><b>RESTful API</b><span>요청/응답 설계 · Postman 테스트</span></li>
             <li><b>MyBatis</b><span>Mapper 기반 DB 연동·쿼리</span></li>
+          </ul>
+        </div>
+        <div class="tool" style="--c: var(--teal)">
+          <h3><i></i>Infra</h3>
+          <ul>
+            <li><b>AWS EC2 / S3</b><span>서버 인스턴스 운영 · 정적 파일 스토리지</span></li>
+            <li><b>Docker</b><span>컨테이너 기반 실행 환경 구성</span></li>
+            <li><b>GitLab CI/CD</b><span>빌드 · 배포 파이프라인 자동화</span></li>
+            <li><b>Nginx</b><span>리버스 프록시 · 웹 서버 설정</span></li>
+            <li><b>Monitoring</b><span>서버 상태 · 로그 모니터링</span></li>
           </ul>
         </div>
         <div class="tool" style="--c: var(--amber)">
@@ -656,7 +678,7 @@
     <section class="band" id="work">
       <div class="band__head">
         <h2 class="band__title">작품<em>Selected Work</em></h2>
-        <span class="band__count mono">4 Projects · 2024 – 2026</span>
+        <span class="band__count mono">6 Projects · 2024 – 2026</span>
       </div>
       <div class="plates" id="plates"></div>
     </section>
@@ -718,7 +740,138 @@
   ================================================ */
   var projects = [
     {
-      id: "pick-n-pay", accent: "cobalt", no: "01",
+      id: "yeobo", accent: "teal", no: "01",
+      name: "여보", ko: "기업여신보좌관 · 스타트업 법인 여신 심사 AI 보조 시스템", year: "2026",
+      team: "5인 팀", role: "백엔드", period: "2026.08 – 09",
+      cover: "yeobo-limit.webp",
+      images: [
+        { src: "yeobo-list.webp", cap: "심사 건 목록 — 진행 상태별 탭과 검색" },
+        { src: "yeobo-upload.webp", cap: "서류 제출 — 필수 서류 10종 업로드 후 자동 판독" },
+        { src: "yeobo-ocr.webp", cap: "서류 확인 — 원본과 판독 결과 대조, 담당자 직접 교정" },
+        { src: "yeobo-risk.webp", cap: "위험 점검 — 교차검증 탐지 결과와 AI 해석" },
+        { src: "yeobo-limit.webp", cap: "등급 · 한도 — 최종 등급과 제안 한도, 산출 근거" },
+        { src: "yeobo-opinion.webp", cap: "심사의견서 — 앞 단계의 확정값을 9구역 문서로 정리" },
+        { src: "yeobo-pdf.webp", cap: "심사의견서 PDF 미리보기 — 담당자 의견과 최종 확정정보" }
+      ],
+      short: "여신 심사 담당자가 스타트업 법인의 제출 서류 10종을 심사할 때 파싱 → 교차검증 → AI 분석 → 점수·등급 → 한도 → 심사의견서까지 보조하는 시스템. 교차검증부터 심사의견서 PDF까지 백엔드 핵심 도메인을 담당했습니다.",
+      points: [
+        "교차검증(무결성·건전성) 룰 판정 도메인 설계·구현",
+        "AI 서버 6개 기능 공통 비동기 Job 클라이언트 구축",
+        "등급표 기반 제안 한도 계산 · 확정 스냅샷 · 심사의견서 PDF"
+      ],
+      desc: "AI는 탐지·해석·초고까지만, 판단과 확정은 사람이 하는 여신 심사 보조 시스템입니다. 원장 스냅샷의 판독 확정값으로 룰을 판정하고, AI 해설과 1차 점수를 받아 저장한 뒤, 등급표로 한도를 계산해 담당자가 확정하는 흐름을 Spring Boot로 구현했습니다. 기능마다 Flyway 마이그레이션과 실제 PostgreSQL 통합 테스트를 함께 작성했습니다.",
+      stack: ["Java 21", "Spring Boot", "Spring Data JPA", "PostgreSQL 16", "Flyway", "PDFBox", "JUnit 5", "React 19", "TypeScript", "Docker Compose", "GitLab CI"],
+      roles: [
+        { h: "교차검증 (무결성 · 건전성)", items: [
+          { k: "룰 마스터 · 카탈로그", v: "16개 룰 기준으로 룰 마스터 재정의, 룰 목록·임계값 정책 조회 API 제공" },
+          { k: "건전성 룰 직접 판정", v: "AI 호출 대신 판독 확정값으로 건전성 5룰을 백엔드에서 판정, 비교 불가도 탐지 행으로 기록" },
+          { k: "실행 · 재실행", v: "원장 스냅샷으로 요청 본문 조립 → 판정 저장, 기준일·평가 기준 버전을 회차에 기록" },
+          { k: "탐지 근거 · 리포트", v: "탐지 근거를 서류 번호·페이지로 제공, 검토 완료 시 결과 리포트 생성과 판단 이력·진행률 API" },
+          { k: "검토 완료 게이트", v: "체납·연체 확정 건은 검토 완료를 막고 완납 확인 시 해제" }
+        ]},
+        { h: "AI 연동 · 비동기 작업", items: [
+          { k: "공통 비동기 AI 클라이언트", v: "parse·rules·analysis·score·limit·draft 6기능 공통 전송 — 접수(202) → 폴링 → 결과 조회, 실행 상태와 업무 판정 분리" },
+          { k: "파싱 재트리거 최적화", v: "이미 읽은 서류는 건너뛰고 문서별로 누적해 한 장씩 업로드할 때의 O(n²) 재판독 제거" },
+          { k: "AI 분석 해설", v: "탐지별 해석 저장, 해설 이력 조회와 실패 건 재요청 API" },
+          { k: "서비스 토큰 인증", v: "하드코딩된 Bearer 값을 제거하고 요청마다 서비스 토큰 주입, 미설정 시 원인 반환" }
+        ]},
+        { h: "신용점수 · 한도", items: [
+          { k: "CreditScore", v: "1차 신용평가 점수 산출·저장, 조회 및 실패 건 재요청 API" },
+          { k: "제안 한도 계산기", v: "min(신청 금액, 등급별 매출액 한도, 자기자본 300%) — 기준 JSON을 내용 해시로 버전 관리" },
+          { k: "한도 확정 스냅샷", v: "확정 시점 값을 동결 저장하고 확정 이력·산출 근거 조회 API 제공" }
+        ]},
+        { h: "원장 · 심사의견서", items: [
+          { k: "LedgerSnapshot", v: "서류별 추출 스냅샷 저장과 재판독 리비전 관리" },
+          { k: "판독 확인 교정", v: "담당자가 고친 값에 출처 표시와 원래 값 보존, 못 읽은 칸은 빈 줄로 노출" },
+          { k: "OpinionPdfRenderer", v: "PDFBox + 나눔고딕 임베드로 미리보기·최종본 PDF 생성, 열람 감사 로그 기록" },
+          { k: "심사의견서 화면", v: "서버 확정값을 9구역 문서에 연결, html-to-image + jsPDF로 칸이 잘리지 않게 A4 분할" }
+        ]}
+      ],
+      trouble: [
+        { t: "재판독 시 파싱 작업 전체 실패",
+          p: "재판독한 서류를 원장에 다시 넣으려다 중복 등록으로 거절되고, 원장 등록과 작업 성공 처리가 같은 트랜잭션이라 OCR 성공까지 통째로 롤백",
+          s: "latest 리비전 컬럼과 부분 유일 색인(UNIQUE … WHERE latest)으로 전환해 같은 내용은 멱등, 다른 내용은 새 리비전으로 저장. 동시 요청은 비관적 락, 옛 행을 먼저 flush해 Hibernate 실행 순서와 색인 충돌 방지" },
+        { t: "특정 서류 업로드 시 insert 실패",
+          p: "서류 종류 코드(31자)가 VARCHAR(30) 컬럼을 초과 — 실제 DB에 넣는 테스트가 없어 미발견",
+          s: "적용된 마이그레이션은 건드리지 않고 새 마이그레이션으로 컬럼 확장, 서류 10종 전부를 실제 DB에 넣어 보는 테스트 추가" }
+      ],
+      outcomes: [
+        "교차검증 → AI 분석 → 1차 점수 → 한도 확정 → 심사의견서 PDF 구간을 백엔드로 연결",
+        "Flyway 마이그레이션 약 24개 작성 — 교차검증 · 원장 · 점수 · 한도 · 메모 스키마",
+        "변경 코드의 절반가량이 테스트 — 실제 PostgreSQL 기반 통합 테스트 포함",
+        "커밋 165건 (머지 제외)"
+      ],
+      retro: {
+        good: "커밋마다 원인 · 결정 근거 · 남은 한계를 기록하고, 기능과 테스트를 함께 작성한 점",
+        bad: "AI 응답을 스레드가 붙잡고 기다리는 폴링 구조와 병렬 개발 중 마이그레이션 번호 충돌을 미리 막지 못한 점",
+        learned: "트랜잭션 경계가 실패 범위를 결정한다는 것, 그리고 스키마 제약은 실제 DB에 넣어 보는 테스트로만 검증된다는 것을 실제 장애로 체감"
+      },
+      repo: null
+    },
+    {
+      id: "turtle-neck", accent: "coral", no: "02",
+      name: "토끼와 거북목", ko: "웹캠 자세 감지 · 팀 스트레칭 데스크톱 앱", year: "2026",
+      team: "5인 팀", role: "프론트엔드", period: "2026.07 – 08",
+      cover: "turtle-team.png",
+      images: [
+        { src: "turtle-home.png", cap: "홈 — 실시간 자세 모니터링" },
+        { src: "turtle-team.png", cap: "팀 대시보드 — 팀 점수 · 참여 추이 · 팀원 상태" },
+        { src: "turtle-stretch.png", cap: "팀 스트레칭 룸 — 단계 배리어 · 캠/아바타 · 이모티콘 리액션" },
+        { src: "turtle-records.png", cap: "내 기록 — 자세 분석 차트와 세션 히스토리" }
+      ],
+      short: "웹캠으로 거북목·화면 근접·졸음을 감지해 알려 주고, 팀원과 정해진 시각에 함께 스트레칭하는 Electron 데스크톱 앱. 팀 기능 전체와 WebSocket·WebRTC 기반 실시간 팀 스트레칭 룸을 맡았습니다.",
+      points: [
+        "WebSocket 회차 프로토콜 + WebRTC P2P mesh로 팀 스트레칭 라이브 룸 구현",
+        "팀 생성 · 초대코드 · 점수 · 실시간 상태 API 연동과 팀 대시보드",
+        "앱 전역 스트레칭 알림 흐름 — 다른 화면 · 창 숨김 상태에서도 동작"
+      ],
+      desc: "영상 분석은 모두 사용자 PC 안에서만 이루어지는 자세 교정 앱입니다. 팀원과 같은 시각에 회차 소켓으로 입장해 단계별로 함께 넘어가는(배리어) 스트레칭 룸을 만들고, P2P 영상 · 이모티콘 리액션 · 채팅을 얹었습니다. 회차 1분 전 알림은 어느 화면에 있든 뜨도록 앱 전역 흐름으로 설계했습니다.",
+      stack: ["Electron", "React 19", "TypeScript", "electron-vite", "Tailwind CSS", "Recharts", "WebSocket", "WebRTC", "MediaPipe"],
+      roles: [
+        { h: "팀 스트레칭 실시간 룸", items: [
+          { k: "useRoundSocket", v: "회차 WebSocket 프로토콜 타입 정의 — 입장 · 단계 배리어 · 팀 점수 이벤트를 상태로 리듀스, close 코드를 사유 문구로 매핑" },
+          { k: "WebSocket 인증", v: "브라우저 WebSocket은 헤더를 못 실어, 메인 프로세스가 safeStorage 토큰으로 URL을 조립해 IPC로 전달" },
+          { k: "useRoundWebRTC", v: "참여자별 RTCPeerConnection mesh — glare 회피 규칙, remoteDescription 이전 ICE 후보 버퍼링" },
+          { k: "RTCDataChannel 리액션", v: "백엔드 변경 없이 P2P로 토끼 이모티콘 리액션과 프리셋 멘트 채팅 전송" },
+          { k: "배리어 단계 UI", v: "통과 단계 체크 팝인, 팀원을 기다리는 구간은 바가 채워지는 애니메이션" }
+        ]},
+        { h: "스트레칭 알림 흐름", items: [
+          { k: "StretchFlowController", v: "회차 알람 · 참여 오버레이 · 룸 이동을 앱 전역으로 옮겨 다른 화면이나 창을 숨긴 상태에서도 동작" },
+          { k: "팀 · 개인 알람", v: "팀은 회차 1분 전, 개인은 스트레칭 · 자리비움을 뺀 실제 작업 시간 기준 주기 알림" },
+          { k: "참여 방식 선택", v: "일반 캠 / 아바타 선택 — FaceLandmarker로 얼굴을 추적해 캐릭터를 얹은 미리보기" },
+          { k: "스트레칭 가이드", v: "동작 시범 GIF, 스켈레톤 오버레이, 부위별 목표 마커, 단계 통과 효과음" }
+        ]},
+        { h: "팀 기능 · 기록", items: [
+          { k: "팀 관리 API", v: "팀 생성 · 수정 · 참여 · 나가기 · 해산, 초대코드 미리보기와 복사" },
+          { k: "팀원 상태", v: "60초 하트비트 보고 + 폴링 조회로 온라인 상태 표시" },
+          { k: "오늘의 회차", v: "서버 시간 오프셋으로 보정한 카운트다운, 예정 · 진행 · 완료 · 불참 상태별 카드" },
+          { k: "팀 점수", v: "점수 카드, 상세 내역 드로어, 요일별 추이 차트" },
+          { k: "내 기록 대시보드", v: "오늘/주간/월간 요약과 자세 분석 차트 3종, 차트 변환은 순수 함수로 분리해 테스트" }
+        ]}
+      ],
+      trouble: [
+        { t: "팀 회차 알람이 간헐적으로 안 뜸",
+          p: "응답에서 남은 시간 필드가 빠질 수 있고, 알람이 모니터링 화면에 묶여 다른 화면 · 창 숨김 시 동작하지 않음",
+          s: "예정 회차 목록에서 남은 시간을 직접 계산하고, 알람을 앱 전역 컨트롤러로 이동 + 백그라운드 스로틀링 해제 · 항상 위 오버레이 적용" },
+        { t: "시간초과된 단계에서 가이드가 멈춤",
+          p: "가이드는 로컬 판정을, 단계 진행은 서버 배리어를 따라 미통과 시간초과 땐 로컬이 넘어갈 계기가 없음",
+          s: "서버 단계가 로컬보다 앞서면 그 차이만큼 건너뛰어 따라잡도록 동기화" }
+      ],
+      outcomes: [
+        "팀 스트레칭 라이브 룸(회차 소켓 + WebRTC 영상 · 리액션 · 채팅) 구현",
+        "팀 관련 API 연동과 팀 대시보드 · 개인 기록 대시보드 구성",
+        "차트 변환 · 상태 매핑 · 알림 상태머신 등 순수 로직 단위 테스트 추가",
+        "커밋 156건 (머지 제외)"
+      ],
+      retro: {
+        good: "회차 알람을 화면에서 떼어 앱 전역 흐름으로 분리해 실사용 흐름을 끝까지 연결한 점",
+        bad: "WebRTC에 STUN만 두고 TURN 서버를 구성하지 못해 대칭 NAT 환경은 해결하지 못한 점",
+        learned: "기능을 특정 화면에 묶지 않고 앱 전역 흐름으로 설계해야 실사용에서 끊기지 않는다는 것, 서버 권위 상태와 로컬 상태를 맞추는 동기화 설계"
+      },
+      repo: null
+    },
+    {
+      id: "pick-n-pay", accent: "cobalt", no: "03",
       name: "Pick&Pay", ko: "소상공인 및 근로자 통합관리 서비스", year: "2026",
       team: "3인 팀", role: "백엔드 중심 풀스택", period: "2026.06",
       cover: "1-1.png",
@@ -787,7 +940,7 @@
         "급여 주기 5종을 하나의 계산기로 추상화해 정산 로직 중복을 제거하고 주기 확장에 열린 구조 확보",
         "근무기록 변경 → 급여 자동 재계산 → 사장님 확정 → 명세서 PDF 발급까지 이어지는 전 구간 설계",
         "공공데이터 API → Spring Batch 자동 수집 → AI 요약까지 데이터 파이프라인 구축",
-        "작업 커밋 12건 · 파일 64개 · 약 4,000줄 기여, PR 6건 리드"
+        "작업 커밋 12건 · PR 6건 리드"
       ],
       retro: {
         good: "급여 주기 계산을 SalaryPeriodCalculator로 분리해, 주기가 추가돼도 계산기만 늘리면 되는 구조를 확보한 점",
@@ -797,7 +950,7 @@
       repo: "https://github.com/Lee-gaeun/pick-n-pay"
     },
     {
-      id: "homebuddy-terms", accent: "coral", no: "02",
+      id: "homebuddy-terms", accent: "coral", no: "04",
       name: "HOMEBUDDY", ko: "부동산 용어해설집 기능", year: "2025",
       team: "8인 팀", role: "백엔드 · 프론트엔드", period: "2025.07 – 08 · 6주",
       cover: "2-1.png",
@@ -849,7 +1002,7 @@
       repo: "https://github.com/Lee-gaeun/mouem-zip"
     },
     {
-      id: "jeonse-ratio", accent: "amber", no: "03",
+      id: "jeonse-ratio", accent: "amber", no: "05",
       name: "HOMEBUDDY", ko: "전세가율 분석 서비스", year: "2025",
       team: "개인", role: "백엔드 · 프론트엔드", period: "2025.10 – 12",
       cover: "3-2.png",
@@ -902,7 +1055,7 @@
       repo: null
     },
     {
-      id: "vocab-db", accent: "ink", no: "04",
+      id: "vocab-db", accent: "ink", no: "06",
       name: "단어 학습 서비스 DB 설계", ko: "", year: "2024",
       team: "개인", role: "DB 설계", period: "2024.12",
       cover: "4-3.png",
@@ -952,8 +1105,8 @@
     }
   ];
 
-  var ACCENT = { cobalt: "var(--cobalt)", coral: "var(--coral)", amber: "var(--amber)", ink: "var(--ink)" };
-  var ACCENT_INK = { cobalt: "var(--cobalt-ink)", coral: "var(--coral-ink)", amber: "var(--amber-ink)", ink: "var(--ink)" };
+  var ACCENT = { cobalt: "var(--cobalt)", coral: "var(--coral)", amber: "var(--amber)", teal: "var(--teal)", ink: "var(--ink)" };
+  var ACCENT_INK = { cobalt: "var(--cobalt-ink)", coral: "var(--coral-ink)", amber: "var(--amber-ink)", teal: "var(--teal-ink)", ink: "var(--ink)" };
 
   function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function imgSrc(x) { return typeof x === "string" ? x : x.src; }
