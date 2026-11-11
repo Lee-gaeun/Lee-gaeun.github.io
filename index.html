@@ -256,14 +256,8 @@
   .bio__what p { margin: 0; color: var(--ink-soft); max-width: 44em; }
 
   /* ---------- tools ---------- */
-  .tools { display: grid; grid-template-columns: repeat(6, 1fr); gap: .9rem; }
-  .tool { grid-column: span 2; }
-  .tool:nth-child(n+4) { grid-column: span 3; }
-  @media (max-width: 900px) {
-    .tools { grid-template-columns: repeat(2, 1fr); }
-    .tool, .tool:nth-child(n+4) { grid-column: auto; }
-    .tool:last-child { grid-column: 1 / -1; }
-  }
+  .tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: .9rem; }
+  @media (max-width: 900px) { .tools { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .tools { grid-template-columns: 1fr; } }
   .tool {
     padding: 1.35rem 1.35rem 1.5rem;
@@ -381,6 +375,7 @@
     max-height: calc(100dvh - 2.5rem);
     overflow: hidden; box-shadow: var(--shadow-md);
   }
+  .print-cases { display: none; }
   dialog.case::backdrop { background: rgba(10, 10, 16, .55); backdrop-filter: blur(4px); }
   .case__scroll { overflow-y: auto; max-height: calc(100dvh - 2.5rem); padding: clamp(1.4rem, 4vw, 2.6rem); }
   .case__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
@@ -539,6 +534,31 @@
     .reg--3 { animation-delay: .14s; }
     @keyframes reg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   }
+
+  /* ---------- print / PDF ---------- */
+  @page { size: A4; margin: 14mm 12mm; }
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #fff; }
+    .runhead, .hero__glow, .plate .btn, dialog.case { display: none !important; }
+    .reg { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .tool:hover, .plate:hover { transform: none; }
+    .band { break-inside: auto; }
+    .tool, .plate, .contact__card { break-inside: avoid; }
+    html { font-size: 13px; }
+    /* A4 폭(약 700px)에서도 데스크톱 배치를 유지 */
+    .tools { grid-template-columns: repeat(4, 1fr); }
+    .plate { grid-template-columns: 1fr 1.15fr; gap: 1.6rem; }
+    .plate--flip { grid-template-columns: 1.15fr 1fr; }
+    .plate--flip .plate__media { order: 2; }
+    .contact__in { grid-template-columns: 1fr auto; }
+    .print-cases { display: block; }
+    .case--print .gallery { grid-template-columns: repeat(2, 1fr); gap: .9rem; }
+    .case--print { break-before: page; }
+    .case--print .tr, .case--print .role, .case--print figure,
+    .case--print .retro__c, .case--print .facts { break-inside: avoid; }
+    .case--print .case__label { break-after: avoid; }
+  }
 </style>
 </head>
 <body>
@@ -625,7 +645,7 @@
     <section class="band" id="tools">
       <div class="band__head">
         <h2 class="band__title">도구<em>Tools</em></h2>
-        <span class="band__count mono">Frontend · Backend · Infra · DB · Collab</span>
+        <span class="band__count mono">Frontend · Backend · DB · Collab</span>
       </div>
       <div class="tools">
         <div class="tool" style="--c: var(--cobalt)">
@@ -644,16 +664,6 @@
             <li><b>Spring / Spring MVC</b><span>웹 구조·흐름 이해 · CRUD API</span></li>
             <li><b>RESTful API</b><span>요청/응답 설계 · Postman 테스트</span></li>
             <li><b>MyBatis</b><span>Mapper 기반 DB 연동·쿼리</span></li>
-          </ul>
-        </div>
-        <div class="tool" style="--c: var(--teal)">
-          <h3><i></i>Infra</h3>
-          <ul>
-            <li><b>AWS EC2 / S3</b><span>서버 인스턴스 운영 · 정적 파일 스토리지</span></li>
-            <li><b>Docker</b><span>컨테이너 기반 실행 환경 구성</span></li>
-            <li><b>GitLab CI/CD</b><span>빌드 · 배포 파이프라인 자동화</span></li>
-            <li><b>Nginx</b><span>리버스 프록시 · 웹 서버 설정</span></li>
-            <li><b>Monitoring</b><span>서버 상태 · 로그 모니터링</span></li>
           </ul>
         </div>
         <div class="tool" style="--c: var(--amber)">
@@ -1179,12 +1189,7 @@
   var lastFocus = null;
   function ul(items) { return "<ul>" + items.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>"; }
 
-  function openCase(i) {
-    var p = projects[i];
-    lastFocus = document.activeElement;
-    dlg.style.setProperty("--accent", ACCENT[p.accent]);
-    dlg.style.setProperty("--accent-ink", ACCENT_INK[p.accent]);
-
+  function caseMarkup(p, forPrint) {
     var gallery = p.images && p.images.length
       ? '<div class="case__block"><p class="case__label">화면</p><div class="gallery">' + p.images.map(function (x) {
           var cap = imgCap(x);
@@ -1224,15 +1229,15 @@
         "GitHub 저장소 보기</a></div>"
       : '<div class="case__repo"><span class="soon">저장소 준비 중 · 곧 공개 예정</span></div>';
 
-    dlgBody.innerHTML =
+    var html =
       '<div class="case__head">' +
         '<div>' +
           '<span class="plate__tag"><i></i>Project ' + esc(p.no) + ' · ' + esc(p.year) + '</span>' +
-          '<h2 class="case__title" id="dlgTitle">' + titleMarkup(p) + '</h2>' +
+          '<h2 class="case__title"' + (forPrint ? '' : ' id="dlgTitle"') + '>' + titleMarkup(p) + '</h2>' +
           (p.ko ? '<p class="plate__sub">' + esc(p.ko) + '</p>' : '') +
 
         '</div>' +
-        '<button class="case__x" type="button" aria-label="닫기">&times;</button>' +
+        (forPrint ? '' : '<button class="case__x" type="button" aria-label="닫기">&times;</button>') +
       '</div>' +
       facts +
       '<div class="case__block"><p class="case__label">개요</p><p class="case__summary">' + esc(p.desc) + '</p></div>' +
@@ -1248,7 +1253,15 @@
         '<div class="retro__c retro__c--learn"><h4>배운 점</h4><p>' + esc(p.retro.learned) + '</p></div>' +
       '</div></div>' +
       repo;
+    return forPrint ? html.replace(/ loading="lazy"/g, "") : html;
+  }
 
+  function openCase(i) {
+    var p = projects[i];
+    lastFocus = document.activeElement;
+    dlg.style.setProperty("--accent", ACCENT[p.accent]);
+    dlg.style.setProperty("--accent-ink", ACCENT_INK[p.accent]);
+    dlgBody.innerHTML = caseMarkup(p, false);
     dlgBody.querySelector(".case__x").addEventListener("click", close);
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     dlgBody.scrollTop = 0;
@@ -1272,6 +1285,36 @@
   }
   addEventListener("hashchange", checkHash);
   checkHash();
+
+  /* ---------- print: 모든 프로젝트 상세를 페이지 아래에 펼친다 ---------- */
+  var printed = false;
+  function renderPrint() {
+    if (printed) return;
+    printed = true;
+    var sec = document.createElement("section");
+    sec.className = "print-cases";
+    projects.forEach(function (p) {
+      var art = document.createElement("article");
+      art.className = "case case--print";
+      art.style.setProperty("--accent", ACCENT[p.accent]);
+      art.style.setProperty("--accent-ink", ACCENT_INK[p.accent]);
+      art.innerHTML = caseMarkup(p, true);
+      sec.appendChild(art);
+    });
+    document.querySelector("main .wrap").appendChild(sec);
+    document.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.loading = "eager"; });
+  }
+  var themeBeforePrint = null;
+  addEventListener("beforeprint", function () {
+    renderPrint();
+    themeBeforePrint = root.getAttribute("data-theme");
+    root.setAttribute("data-theme", "light");
+  });
+  addEventListener("afterprint", function () {
+    if (themeBeforePrint) root.setAttribute("data-theme", themeBeforePrint);
+    else root.removeAttribute("data-theme");
+  });
+  if (/[?&]print\b/.test(location.search)) renderPrint();
 })();
 </script>
 </body>
